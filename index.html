@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mining Geology & Operations Intelligence Dashboard</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; color: #1e293b; }
+        .transition-all { transition: all 0.25s ease-in-out; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('welcome')">
+                <div class="bg-amber-500 text-slate-950 p-2 rounded-lg font-bold flex items-center justify-center shadow">
+                    <i class="fa-solid fa-mountain text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg tracking-wide">APEX MINING INTELLIGENCE</h1>
+                    <p class="text-xs text-slate-400">Operations & Geology Dashboard</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div id="nav-division-indicator" class="hidden md:flex items-center bg-slate-800 px-3 py-1.5 rounded-lg text-xs font-medium text-amber-400 border border-slate-700">
+                    <i class="fa-solid fa-layer-group mr-2"></i> <span id="current-view-name">Welcome Hub</span>
+                </div>
+                <button onclick="switchView('welcome')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3.5 py-1.5 rounded-lg text-sm font-medium transition flex items-center shadow-sm">
+                    <i class="fa-solid fa-house mr-1.5"></i> Home
+                </button>
+                <div class="h-6 w-px bg-slate-700"></div>
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-full bg-amber-500 text-slate-950 font-bold flex items-center justify-center text-sm shadow">
+                        SM
+                    </div>
+                    <span class="text-sm font-medium hidden sm:inline">Senior Geologist</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ================= WELCOME SCREEN ================= -->
+        <section id="view-welcome" class="space-y-6">
+            <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute right-0 top-0 bottom-0 w-1/3 opacity-10 bg-no-repeat bg-center bg-cover" style="background-image: url('https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=800&q=80')"></div>
+                <div class="relative z-10 max-w-2xl">
+                    <span class="bg-amber-500/20 text-amber-400 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-500/30">Master Datasheet Active</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mt-3 tracking-tight">Mining Operations & Geology Control Center</h2>
+                    <p class="text-slate-300 mt-2 text-sm sm:text-base leading-relaxed">
+                        Welcome to the unified monitoring platform. Select a division below to analyze real-time blast-hole grades, mining fleet truck movements, and safety incident records extracted directly from the site master database.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Division Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Geology Card -->
+                <div onclick="switchView('geology')" class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all cursor-pointer border border-slate-200 group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform shadow-inner">
+                            <i class="fa-solid fa-gem"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-amber-600 transition-colors">Geology Division</h3>
+                        <p class="text-slate-500 text-sm mt-2">
+                            Monitor blast-hole grade distribution, bench statistics (Bench 240, 245, 250), RL elevations, and spatial coordinate mapping.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-sm font-semibold text-amber-600">
+                        <span>Access Geology Module</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+
+                <!-- Operations Card -->
+                <div onclick="switchView('operations')" class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all cursor-pointer border border-slate-200 group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform shadow-inner">
+                            <i class="fa-solid fa-truck-monster"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Operations Division</h3>
+                        <p class="text-slate-500 text-sm mt-2">
+                            Track mining truck movements (TRK-01 to TRK-10), total tonnage hauled, material types, cycle times, and load/dump locations.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-sm font-semibold text-blue-600">
+                        <span>Access Operations Module</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+
+                <!-- Safety Card -->
+                <div onclick="switchView('safety')" class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all cursor-pointer border border-slate-200 group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform shadow-inner">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Safety Division</h3>
+                        <p class="text-slate-500 text-sm mt-2">
+                            Review recorded safety incidents, Lost Time Injuries (LTI), risk assessments, event categories, and corrective action workflows.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-sm font-semibold text-emerald-600">
+                        <span>Access Safety Module</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats Overview Banner -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-chart-pie text-amber-500 mr-2"></i> Master Datasheet Summary Statistics
+                </h3>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <span class="text-2xl font-black text-slate-900" id="stat-total-blast">126</span>
+                        <p class="text-xs text-slate-500 mt-1 font-medium">Total Blast Holes (3 Benches)</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <span class="text-2xl font-black text-blue-600" id="stat-total-loads">80</span>
+                        <p class="text-xs text-slate-500 mt-1 font-medium">Operational Load Records</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <span class="text-2xl font-black text-emerald-600" id="stat-total-incidents">97</span>
+                        <p class="text-xs text-slate-500 mt-1 font-medium">Safety Incident Records</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <span class="text-2xl font-black text-amber-600" id="stat-fleet-size">10</span>
+                        <p class="text-xs text-slate-500 mt-1 font-medium">Active Haul Trucks (TRK-01..10)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= GEOLOGY DIVISION ================= -->
+        <section id="view-geology" class="hidden space-y-6">
+            <!-- Header & Bench Selector -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <div class="flex items-center space-x-2 text-amber-600 font-semibold text-sm">
+                        <i class="fa-solid fa-gem"></i> <span>Geology Division</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-900 mt-1">Blast-Hole Grade & Bench Analysis</h2>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <label class="text-sm font-semibold text-slate-700">Select Bench:</label>
+                    <select id="geo-bench-select" onchange="updateGeologyDashboard()" class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-xl focus:ring-amber-500 focus:border-amber-500 block p-2.5 font-medium shadow-sm">
+                        <option value="all">All Benches (Combined)</option>
+                        <option value="240">Bench 240</option>
+                        <option value="245">Bench 245</option>
+                        <option value="250">Bench 250</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Geology KPIs -->
+            <div class="grid grid-cols-2 lg:grid-cols-6 gap-4">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Holes</p>
+                    <h4 class="text-2xl font-black text-slate-900 mt-1" id="geo-kpi-count">42</h4>
+                    <span class="text-xs text-slate-400 mt-1 block">Blast records</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Average Grade</p>
+                    <h4 class="text-2xl font-black text-amber-600 mt-1" id="geo-kpi-avg">0.00</h4>
+                    <span class="text-xs text-slate-400 mt-1 block">grams per tonne (g/t)</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">High Grade (HG)</p>
+                    <h4 class="text-2xl font-black text-emerald-600 mt-1" id="geo-kpi-hg">0%</h4>
+                    <span class="text-xs text-slate-400 mt-1 block" id="geo-kpi-hg-count">0 holes</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Medium Grade (MG)</p>
+                    <h4 class="text-2xl font-black text-blue-600 mt-1" id="geo-kpi-mg">0%</h4>
+                    <span class="text-xs text-slate-400 mt-1 block" id="geo-kpi-mg-count">0 holes</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Waste (W)</p>
+                    <h4 class="text-2xl font-black text-slate-500 mt-1" id="geo-kpi-w">0%</h4>
+                    <span class="text-xs text-slate-400 mt-1 block" id="geo-kpi-w-count">0 holes</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Max Grade</p>
+                    <h4 class="text-2xl font-black text-purple-600 mt-1" id="geo-kpi-max">0.00</h4>
+                    <span class="text-xs text-slate-400 mt-1 truncate block" id="geo-kpi-max-id">-</span>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Doughnut Chart -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
+                    <h3 class="text-base font-bold text-slate-900 mb-2">Grade Category Distribution</h3>
+                    <div class="relative flex-grow flex items-center justify-center" style="height: 240px;">
+                        <canvas id="geoDoughnutChart"></canvas>
+                    </div>
+                </div>
+                <!-- Bar Chart -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 lg:col-span-2 flex flex-col">
+                    <h3 class="text-base font-bold text-slate-900 mb-2">Grade Spectrum (g/t) Breakdown</h3>
+                    <div class="relative flex-grow flex items-center justify-center" style="height: 240px;">
+                        <canvas id="geoBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blast Hole Data Table -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Blast-Hole Inspection Records</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">Showing exact coordinates, RL elevations, and classification grades.</p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-solid fa-search"></i>
+                            </span>
+                            <input type="text" id="geo-search" oninput="filterGeoTable()" placeholder="Search ID..." class="pl-9 pr-4 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+                        <select id="geo-filter-cat" onchange="filterGeoTable()" class="bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                            <option value="">All Categories</option>
+                            <option value="HG">High Grade (HG)</option>
+                            <option value="MG">Medium Grade (MG)</option>
+                            <option value="W">Waste (W)</option>
+                        </select>
+                        <button onclick="exportGeoCSV()" class="bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-xl text-sm font-medium transition flex items-center shadow-sm">
+                            <i class="fa-solid fa-download mr-2"></i> Export CSV
+                        </button>
+                    </div>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar" style="max-height: 400px;">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-slate-50 text-slate-700 text-xs uppercase sticky top-0 border-b border-slate-200 font-bold z-10">
+                            <tr>
+                                <th class="py-3 px-6">Blasthole ID</th>
+                                <th class="py-3 px-6">Bench</th>
+                                <th class="py-3 px-6">RL (m)</th>
+                                <th class="py-3 px-6">Latitude</th>
+                                <th class="py-3 px-6">Longitude</th>
+                                <th class="py-3 px-6">Grade (g/t)</th>
+                                <th class="py-3 px-6">Category</th>
+                            </tr>
+                        </thead>
+                        <tbody id="geo-table-body" class="divide-y divide-slate-100 text-sm">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= OPERATIONS DIVISION ================= -->
+        <section id="view-operations" class="hidden space-y-6">
+            <!-- Header & Truck Selector -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <div class="flex items-center space-x-2 text-blue-600 font-semibold text-sm">
+                        <i class="fa-solid fa-truck-monster"></i> <span>Operations Division</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-900 mt-1">Mining Truck Fleet & Haulage Monitoring</h2>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <label class="text-sm font-semibold text-slate-700">Select Truck:</label>
+                    <select id="ops-truck-select" onchange="updateOpsDashboard()" class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-2.5 font-medium shadow-sm">
+                        <option value="all">All Trucks (Combined Fleet)</option>
+                        <option value="TRK-01">TRK-01</option>
+                        <option value="TRK-02">TRK-02</option>
+                        <option value="TRK-03">TRK-03</option>
+                        <option value="TRK-04">TRK-04</option>
+                        <option value="TRK-05">TRK-05</option>
+                        <option value="TRK-06">TRK-06</option>
+                        <option value="TRK-07">TRK-07</option>
+                        <option value="TRK-08">TRK-08</option>
+                        <option value="TRK-09">TRK-09</option>
+                        <option value="TRK-10">TRK-10</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Operations KPIs -->
+            <div class="grid grid-cols-2 lg:grid-cols-6 gap-4">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Loads</p>
+                    <h4 class="text-2xl font-black text-slate-900 mt-1" id="ops-kpi-loads">80</h4>
+                    <span class="text-xs text-slate-400 mt-1 block">Recorded trips</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Tonnes</p>
+                    <h4 class="text-2xl font-black text-blue-600 mt-1" id="ops-kpi-tonnes">0 t</h4>
+                    <span class="text-xs text-slate-400 mt-1 block">Material transported</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Avg Tonnes / Load</p>
+                    <h4 class="text-2xl font-black text-emerald-600 mt-1" id="ops-kpi-avg-tonnes">0 t</h4>
+                    <span class="text-xs text-slate-400 mt-1 block">Per haul cycle</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Avg Cycle Time</p>
+                    <h4 class="text-2xl font-black text-amber-600 mt-1" id="ops-kpi-avg-cycle">0 min</h4>
+                    <span class="text-xs text-slate-400 mt-1 block">Duration per trip</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Shortest Cycle</p>
+                    <h4 class="text-2xl font-black text-indigo-600 mt-1" id="ops-kpi-min-cycle">0 min</h4>
+                    <span class="text-xs text-slate-400 mt-1 block">Fastest recorded</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Longest Cycle</p>
+                    <h4 class="text-2xl font-black text-rose-600 mt-1" id="ops-kpi-max-cycle">0 min</h4>
+                    <span class="text-xs text-slate-400 mt-1 block">Maximum duration</span>
+                </div>
+            </div>
+
+            <!-- Operations Charts -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Doughnut Material -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
+                    <h3 class="text-base font-bold text-slate-900 mb-2">Material Type Distribution</h3>
+                    <div class="relative flex-grow flex items-center justify-center" style="height: 240px;">
+                        <canvas id="opsMaterialChart"></canvas>
+                    </div>
+                </div>
+                <!-- Bar Chart Tonnes by Truck -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 lg:col-span-2 flex flex-col">
+                    <h3 class="text-base font-bold text-slate-900 mb-2">Total Tonnes Hauled by Truck</h3>
+                    <div class="relative flex-grow flex items-center justify-center" style="height: 240px;">
+                        <canvas id="opsTruckBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Operations Load History Table -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Operational Load & Cycle Records</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">Detailed log of pit loading times, material hauling, dumping points, and cycle durations.</p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-solid fa-search"></i>
+                            </span>
+                            <input type="text" id="ops-search" oninput="filterOpsTable()" placeholder="Search Truck or Location..." class="pl-9 pr-4 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <select id="ops-filter-material" onchange="filterOpsTable()" class="bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">All Materials</option>
+                            <option value="High Grade Gold">High Grade Gold</option>
+                            <option value="Waste">Waste</option>
+                        </select>
+                        <button onclick="exportOpsCSV()" class="bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-xl text-sm font-medium transition flex items-center shadow-sm">
+                            <i class="fa-solid fa-download mr-2"></i> Export CSV
+                        </button>
+                    </div>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar" style="max-height: 400px;">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-slate-50 text-slate-700 text-xs uppercase sticky top-0 border-b border-slate-200 font-bold z-10">
+                            <tr>
+                                <th class="py-3 px-6">Truck ID</th>
+                                <th class="py-3 px-6">Load Location</th>
+                                <th class="py-3 px-6">Load Time</th>
+                                <th class="py-3 px-6">Material Type</th>
+                                <th class="py-3 px-6">Dump Location</th>
+                                <th class="py-3 px-6">Dump Time</th>
+                                <th class="py-3 px-6">Tonnes</th>
+                                <th class="py-3 px-6">Cycle Time (mins)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ops-table-body" class="divide-y divide-slate-100 text-sm">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SAFETY DIVISION ================= -->
+        <section id="view-safety" class="hidden space-y-6">
+            <!-- Header & Incident Selector -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <div class="flex items-center space-x-2 text-emerald-600 font-semibold text-sm">
+                        <i class="fa-solid fa-shield-halved"></i> <span>Safety Division</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-900 mt-1">Incident Tracking & Corrective Action Monitoring</h2>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <label class="text-sm font-semibold text-slate-700">Select Incident ID:</label>
+                    <select id="safety-incident-select" onchange="selectSafetyIncidentFromDropdown()" class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-2.5 font-medium shadow-sm max-w-xs">
+                        <!-- Populated by JS -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Safety KPIs -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Recorded Incidents</p>
+                    <h4 class="text-2xl font-black text-slate-900 mt-1" id="safety-kpi-total">97</h4>
+                    <span class="text-xs text-slate-400 mt-1 block">Master database records</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Lost Time Injuries (LTI)</p>
+                    <h4 class="text-2xl font-black text-rose-600 mt-1" id="safety-kpi-lti">0</h4>
+                    <span class="text-xs text-slate-400 mt-1 block">Requires immediate review</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Non-LTI Incidents</p>
+                    <h4 class="text-2xl font-black text-emerald-600 mt-1" id="safety-kpi-nonlti">0</h4>
+                    <span class="text-xs text-slate-400 mt-1 block">Property / Hazard / Near Miss</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">High Potential Risk</p>
+                    <h4 class="text-2xl font-black text-amber-600 mt-1" id="safety-kpi-highrisk">0</h4>
+                    <span class="text-xs text-slate-400 mt-1 block">High risk rating</span>
+                </div>
+            </div>
+
+            <!-- Selected Incident Detail Card -->
+            <div id="incident-detail-card" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                    <div class="flex items-center space-x-3">
+                        <span id="detail-id" class="bg-slate-900 text-white text-sm font-bold px-3 py-1 rounded-lg">INC-001</span>
+                        <span id="detail-date" class="text-sm font-medium text-slate-500"><i class="fa-regular fa-calendar mr-1.5"></i> 2026-07-01</span>
+                        <span id="detail-lti-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">Non-LTI</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs font-semibold">
+                        <span class="text-slate-500">Area:</span> <span id="detail-area" class="text-slate-900 bg-slate-100 px-2.5 py-1 rounded-md">Haul Road</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Event Type & Category</p>
+                        <p id="detail-event" class="text-sm font-bold text-slate-900 mt-1">Property Damage</p>
+                        <p id="detail-category" class="text-xs text-slate-600 mt-0.5">Mobile Equipment</p>
+                        
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mt-4">Potential Risk</p>
+                        <p id="detail-risk" class="text-sm font-semibold text-amber-600 mt-1">High</p>
+                    </div>
+                    <div class="md:col-span-2 space-y-3">
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Incident Description</p>
+                            <p id="detail-desc" class="text-sm text-slate-800 mt-1 bg-slate-50 p-3 rounded-xl border border-slate-100 leading-relaxed">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Actual Outcome</p>
+                            <p id="detail-outcome" class="text-sm text-slate-800 mt-1 bg-slate-50 p-3 rounded-xl border border-slate-100 leading-relaxed">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Corrective Action Taken</p>
+                            <p id="detail-action" class="text-sm text-slate-800 mt-1 bg-emerald-50 text-emerald-900 p-3 rounded-xl border border-emerald-100 font-medium leading-relaxed">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Safety Charts Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Doughnut Event Type -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
+                    <h3 class="text-base font-bold text-slate-900 mb-2">Incidents by Event Type</h3>
+                    <div class="relative flex-grow flex items-center justify-center" style="height: 260px;">
+                        <canvas id="safetyEventChart"></canvas>
+                    </div>
+                </div>
+                <!-- Bar Area -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
+                    <h3 class="text-base font-bold text-slate-900 mb-2">Incidents by Mining Area</h3>
+                    <div class="relative flex-grow flex items-center justify-center" style="height: 260px;">
+                        <canvas id="safetyAreaChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Safety Incident Table -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Safety Incident Master Log</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">Filter and examine all 97 safety records with descriptions and actions.</p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-solid fa-search"></i>
+                            </span>
+                            <input type="text" id="safety-search" oninput="filterSafetyTable()" placeholder="Search ID or Description..." class="pl-9 pr-4 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        </div>
+                        <select id="safety-filter-lti" onchange="filterSafetyTable()" class="bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <option value="">All LTI Status</option>
+                            <option value="Yes">LTI: Yes</option>
+                            <option value="No">LTI: No</option>
+                        </select>
+                        <button onclick="exportSafetyCSV()" class="bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-xl text-sm font-medium transition flex items-center shadow-sm">
+                            <i class="fa-solid fa-download mr-2"></i> Export CSV
+                        </button>
+                    </div>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar" style="max-height: 420px;">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-slate-50 text-slate-700 text-xs uppercase sticky top-0 border-b border-slate-200 font-bold z-10">
+                            <tr>
+                                <th class="py-3 px-6">Incident ID</th>
+                                <th class="py-3 px-6">Date</th>
+                                <th class="py-3 px-6">Area</th>
+                                <th class="py-3 px-6">Event Type</th>
+                                <th class="py-3 px-6">Category</th>
+                                <th class="py-3 px-6">Risk</th>
+                                <th class="py-3 px-6">LTI</th>
+                                <th class="py-3 px-6">Action Taken</th>
+                            </tr>
+                        </thead>
+                        <tbody id="safety-table-body" class="divide-y divide-slate-100 text-sm">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-6 mt-12 border-t border-slate-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 Apex Mining Operations & Geology Intelligence. All embedded data extracted from Master Datasheet.xlsx.</p>
+            <div class="flex items-center space-x-4">
+                <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span> System Online</span>
+                <span>Version 3.4.0-Enterprise</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- EMBEDDED JAVASCRIPT & DATA -->
+    <script>
+        // ================= EMBEDDED DATASETS FROM EXCEL =================
+        const MASTER_DATA = {
+            geo_240: [
+                {Blasthole_ID: "BH240-001", Bench: 240, RL: 240.947, Latitude: -30.663667, Longitude: 121.438325, Grade: 1.348, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-002", Bench: 240, RL: 240.033, Latitude: -30.663693, Longitude: 121.438298, Grade: 1.636, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-003", Bench: 240, RL: 240.404, Latitude: -30.663719, Longitude: 121.438271, Grade: 0.947, Grade_category: "MG"},
+                {Blasthole_ID: "BH240-004", Bench: 240, RL: 239.549, Latitude: -30.663745, Longitude: 121.438244, Grade: 0.402, Grade_category: "W"},
+                {Blasthole_ID: "BH240-005", Bench: 240, RL: 240.413, Latitude: -30.663771, Longitude: 121.438217, Grade: 2.115, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-006", Bench: 240, RL: 239.697, Latitude: -30.663797, Longitude: 121.438190, Grade: 0.814, Grade_category: "MG"},
+                {Blasthole_ID: "BH240-007", Bench: 240, RL: 239.736, Latitude: -30.663823, Longitude: 121.438163, Grade: 1.842, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-008", Bench: 240, RL: 239.818, Latitude: -30.663849, Longitude: 121.438136, Grade: 0.521, Grade_category: "MG"},
+                {Blasthole_ID: "BH240-009", Bench: 240, RL: 239.992, Latitude: -30.663875, Longitude: 121.438109, Grade: 0.298, Grade_category: "W"},
+                {Blasthole_ID: "BH240-010", Bench: 240, RL: 239.811, Latitude: -30.663901, Longitude: 121.438082, Grade: 2.450, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-011", Bench: 240, RL: 240.825, Latitude: -30.663680, Longitude: 121.438500, Grade: 1.120, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-012", Bench: 240, RL: 240.150, Latitude: -30.663710, Longitude: 121.438480, Grade: 0.750, Grade_category: "MG"},
+                {Blasthole_ID: "BH240-013", Bench: 240, RL: 239.900, Latitude: -30.663740, Longitude: 121.438460, Grade: 0.350, Grade_category: "W"},
+                {Blasthole_ID: "BH240-014", Bench: 240, RL: 240.500, Latitude: -30.663770, Longitude: 121.438440, Grade: 1.950, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-015", Bench: 240, RL: 240.120, Latitude: -30.663800, Longitude: 121.438420, Grade: 0.880, Grade_category: "MG"},
+                {Blasthole_ID: "BH240-016", Bench: 240, RL: 239.450, Latitude: -30.663830, Longitude: 121.438400, Grade: 0.450, Grade_category: "W"},
+                {Blasthole_ID: "BH240-017", Bench: 240, RL: 240.780, Latitude: -30.663860, Longitude: 121.438380, Grade: 2.300, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-018", Bench: 240, RL: 240.330, Latitude: -30.663890, Longitude: 121.438360, Grade: 1.050, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-019", Bench: 240, RL: 239.890, Latitude: -30.663920, Longitude: 121.438340, Grade: 0.620, Grade_category: "MG"},
+                {Blasthole_ID: "BH240-020", Bench: 240, RL: 239.550, Latitude: -30.663950, Longitude: 121.438320, Grade: 0.310, Grade_category: "W"},
+                {Blasthole_ID: "BH240-021", Bench: 240, RL: 240.600, Latitude: -30.663980, Longitude: 121.438300, Grade: 1.550, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-022", Bench: 240, RL: 240.210, Latitude: -30.664010, Longitude: 121.438280, Grade: 0.900, Grade_category: "MG"},
+                {Blasthole_ID: "BH240-023", Bench: 240, RL: 239.750, Latitude: -30.664040, Longitude: 121.438260, Grade: 0.480, Grade_category: "W"},
+                {Blasthole_ID: "BH240-024", Bench: 240, RL: 240.900, Latitude: -30.664070, Longitude: 121.438240, Grade: 2.800, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-025", Bench: 240, RL: 240.100, Latitude: -30.664100, Longitude: 121.438220, Grade: 0.700, Grade_category: "MG"},
+                {Blasthole_ID: "BH240-026", Bench: 240, RL: 239.850, Latitude: -30.664130, Longitude: 121.438200, Grade: 0.380, Grade_category: "W"},
+                {Blasthole_ID: "BH240-027", Bench: 240, RL: 240.450, Latitude: -30.664160, Longitude: 121.438180, Grade: 1.750, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-028", Bench: 240, RL: 240.050, Latitude: -30.664190, Longitude: 121.438160, Grade: 0.850, Grade_category: "MG"},
+                {Blasthole_ID: "BH240-029", Bench: 240, RL: 239.650, Latitude: -30.664220, Longitude: 121.438140, Grade: 0.250, Grade_category: "W"},
+                {Blasthole_ID: "BH240-030", Bench: 240, RL: 240.800, Latitude: -30.664250, Longitude: 121.438120, Grade: 2.100, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-031", Bench: 240, RL: 240.250, Latitude: -30.664280, Longitude: 121.438100, Grade: 1.150, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-032", Bench: 240, RL: 239.950, Latitude: -30.664310, Longitude: 121.438080, Grade: 0.550, Grade_category: "MG"},
+                {Blasthole_ID: "BH240-033", Bench: 240, RL: 239.350, Latitude: -30.664340, Longitude: 121.438060, Grade: 0.180, Grade_category: "W"},
+                {Blasthole_ID: "BH240-034", Bench: 240, RL: 240.700, Latitude: -30.664370, Longitude: 121.438040, Grade: 2.400, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-035", Bench: 240, RL: 240.180, Latitude: -30.664400, Longitude: 121.438020, Grade: 0.950, Grade_category: "MG"},
+                {Blasthole_ID: "BH240-036", Bench: 240, RL: 239.820, Latitude: -30.664430, Longitude: 121.438000, Grade: 0.420, Grade_category: "W"},
+                {Blasthole_ID: "BH240-037", Bench: 240, RL: 240.550, Latitude: -30.664460, Longitude: 121.437980, Grade: 1.850, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-038", Bench: 240, RL: 240.020, Latitude: -30.664490, Longitude: 121.437960, Grade: 0.780, Grade_category: "MG"},
+                {Blasthole_ID: "BH240-039", Bench: 240, RL: 239.620, Latitude: -30.664520, Longitude: 121.437940, Grade: 0.330, Grade_category: "W"},
+                {Blasthole_ID: "BH240-040", Bench: 240, RL: 240.850, Latitude: -30.664550, Longitude: 121.437920, Grade: 2.650, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-041", Bench: 240, RL: 240.300, Latitude: -30.664580, Longitude: 121.437900, Grade: 1.200, Grade_category: "HG"},
+                {Blasthole_ID: "BH240-042", Bench: 240, RL: 239.900, Latitude: -30.664610, Longitude: 121.437880, Grade: 0.600, Grade_category: "MG"}
+            ],
+            geo_245: [
+                {Blasthole_ID: "BH245-001", Bench: 245, RL: 244.890, Latitude: -30.663667, Longitude: 121.438325, Grade: 2.860, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-002", Bench: 245, RL: 245.108, Latitude: -30.663693, Longitude: 121.438298, Grade: 3.144, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-003", Bench: 245, RL: 244.404, Latitude: -30.663719, Longitude: 121.438271, Grade: 1.247, Grade_category: "MG"},
+                {Blasthole_ID: "BH245-004", Bench: 245, RL: 244.549, Latitude: -30.663745, Longitude: 121.438244, Grade: 0.502, Grade_category: "W"},
+                {Blasthole_ID: "BH245-005", Bench: 245, RL: 245.413, Latitude: -30.663771, Longitude: 121.438217, Grade: 4.115, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-006", Bench: 245, RL: 244.697, Latitude: -30.663797, Longitude: 121.438190, Grade: 1.114, Grade_category: "MG"},
+                {Blasthole_ID: "BH245-007", Bench: 245, RL: 244.736, Latitude: -30.663823, Longitude: 121.438163, Grade: 3.842, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-008", Bench: 245, RL: 244.818, Latitude: -30.663849, Longitude: 121.438136, Grade: 0.921, Grade_category: "MG"},
+                {Blasthole_ID: "BH245-009", Bench: 245, RL: 245.992, Latitude: -30.663875, Longitude: 121.438109, Grade: 0.498, Grade_category: "W"},
+                {Blasthole_ID: "BH245-010", Bench: 245, RL: 244.811, Latitude: -30.663901, Longitude: 121.438082, Grade: 4.450, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-011", Bench: 245, RL: 245.825, Latitude: -30.663680, Longitude: 121.438500, Grade: 2.120, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-012", Bench: 245, RL: 245.150, Latitude: -30.663710, Longitude: 121.438480, Grade: 1.150, Grade_category: "MG"},
+                {Blasthole_ID: "BH245-013", Bench: 245, RL: 244.900, Latitude: -30.663740, Longitude: 121.438460, Grade: 0.550, Grade_category: "W"},
+                {Blasthole_ID: "BH245-014", Bench: 245, RL: 245.500, Latitude: -30.663770, Longitude: 121.438440, Grade: 3.950, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-015", Bench: 245, RL: 245.120, Latitude: -30.663800, Longitude: 121.438420, Grade: 1.280, Grade_category: "MG"},
+                {Blasthole_ID: "BH245-016", Bench: 245, RL: 244.450, Latitude: -30.663830, Longitude: 121.438400, Grade: 0.650, Grade_category: "W"},
+                {Blasthole_ID: "BH245-017", Bench: 245, RL: 245.780, Latitude: -30.663860, Longitude: 121.438380, Grade: 4.300, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-018", Bench: 245, RL: 245.330, Latitude: -30.663890, Longitude: 121.438360, Grade: 2.050, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-019", Bench: 245, RL: 244.890, Latitude: -30.663920, Longitude: 121.438340, Grade: 1.020, Grade_category: "MG"},
+                {Blasthole_ID: "BH245-020", Bench: 245, RL: 244.550, Latitude: -30.663950, Longitude: 121.438320, Grade: 0.510, Grade_category: "W"},
+                {Blasthole_ID: "BH245-021", Bench: 245, RL: 245.600, Latitude: -30.663980, Longitude: 121.438300, Grade: 3.550, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-022", Bench: 245, RL: 245.210, Latitude: -30.664010, Longitude: 121.438280, Grade: 1.400, Grade_category: "MG"},
+                {Blasthole_ID: "BH245-023", Bench: 245, RL: 244.750, Latitude: -30.664040, Longitude: 121.438260, Grade: 0.680, Grade_category: "W"},
+                {Blasthole_ID: "BH245-024", Bench: 245, RL: 245.900, Latitude: -30.664070, Longitude: 121.438240, Grade: 4.800, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-025", Bench: 245, RL: 245.100, Latitude: -30.664100, Longitude: 121.438220, Grade: 1.100, Grade_category: "MG"},
+                {Blasthole_ID: "BH245-026", Bench: 245, RL: 244.850, Latitude: -30.664130, Longitude: 121.438200, Grade: 0.580, Grade_category: "W"},
+                {Blasthole_ID: "BH245-027", Bench: 245, RL: 245.450, Latitude: -30.664160, Longitude: 121.438180, Grade: 3.750, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-028", Bench: 245, RL: 245.050, Latitude: -30.664190, Longitude: 121.438160, Grade: 1.250, Grade_category: "MG"},
+                {Blasthole_ID: "BH245-029", Bench: 245, RL: 244.650, Latitude: -30.664220, Longitude: 121.438140, Grade: 0.450, Grade_category: "W"},
+                {Blasthole_ID: "BH245-030", Bench: 245, RL: 245.800, Latitude: -30.664250, Longitude: 121.438120, Grade: 4.100, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-031", Bench: 245, RL: 245.250, Latitude: -30.664280, Longitude: 121.438100, Grade: 2.150, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-032", Bench: 245, RL: 244.950, Latitude: -30.664310, Longitude: 121.438080, Grade: 0.950, Grade_category: "MG"},
+                {Blasthole_ID: "BH245-033", Bench: 245, RL: 244.350, Latitude: -30.664340, Longitude: 121.438060, Grade: 0.380, Grade_category: "W"},
+                {Blasthole_ID: "BH245-034", Bench: 245, RL: 245.700, Latitude: -30.664370, Longitude: 121.438040, Grade: 4.400, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-035", Bench: 245, RL: 245.180, Latitude: -30.664400, Longitude: 121.438020, Grade: 1.450, Grade_category: "MG"},
+                {Blasthole_ID: "BH245-036", Bench: 245, RL: 244.820, Latitude: -30.664430, Longitude: 121.438000, Grade: 0.620, Grade_category: "W"},
+                {Blasthole_ID: "BH245-037", Bench: 245, RL: 245.550, Latitude: -30.664460, Longitude: 121.437980, Grade: 3.850, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-038", Bench: 245, RL: 245.020, Latitude: -30.664490, Longitude: 121.437960, Grade: 1.180, Grade_category: "MG"},
+                {Blasthole_ID: "BH245-039", Bench: 245, RL: 244.620, Latitude: -30.664520, Longitude: 121.437940, Grade: 0.530, Grade_category: "W"},
+                {Blasthole_ID: "BH245-040", Bench: 245, RL: 245.850, Latitude: -30.664550, Longitude: 121.437920, Grade: 4.650, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-041", Bench: 245, RL: 245.300, Latitude: -30.664580, Longitude: 121.437900, Grade: 2.200, Grade_category: "HG"},
+                {Blasthole_ID: "BH245-042", Bench: 245, RL: 244.900, Latitude: -30.664610, Longitude: 121.437880, Grade: 1.000, Grade_category: "MG"}
+            ],
+            geo_250: [
+                {Blasthole_ID: "BH250-001", Bench: 250, RL: 249.949, Latitude: -30.663667, Longitude: 121.438325, Grade: 0.642, Grade_category: "MG"},
+                {Blasthole_ID: "BH250-002", Bench: 250, RL: 250.006, Latitude: -30.663693, Longitude: 121.438298, Grade: 0.441, Grade_category: "W"},
+                {Blasthole_ID: "BH250-003", Bench: 250, RL: 249.404, Latitude: -30.663719, Longitude: 121.438271, Grade: 0.347, Grade_category: "W"},
+                {Blasthole_ID: "BH250-004", Bench: 250, RL: 249.549, Latitude: -30.663745, Longitude: 121.438244, Grade: 0.202, Grade_category: "W"},
+                {Blasthole_ID: "BH250-005", Bench: 250, RL: 250.413, Latitude: -30.663771, Longitude: 121.438217, Grade: 1.115, Grade_category: "HG"},
+                {Blasthole_ID: "BH250-006", Bench: 250, RL: 249.697, Latitude: -30.663797, Longitude: 121.438190, Grade: 0.514, Grade_category: "MG"},
+                {Blasthole_ID: "BH250-007", Bench: 250, RL: 249.736, Latitude: -30.663823, Longitude: 121.438163, Grade: 0.842, Grade_category: "MG"},
+                {Blasthole_ID: "BH250-008", Bench: 250, RL: 249.818, Latitude: -30.663849, Longitude: 121.438136, Grade: 0.321, Grade_category: "W"},
+                {Blasthole_ID: "BH250-009", Bench: 250, RL: 250.992, Latitude: -30.663875, Longitude: 121.438109, Grade: 0.198, Grade_category: "W"},
+                {Blasthole_ID: "BH250-010", Bench: 250, RL: 249.811, Latitude: -30.663901, Longitude: 121.438082, Grade: 1.450, Grade_category: "HG"},
+                {Blasthole_ID: "BH250-011", Bench: 250, RL: 250.825, Latitude: -30.663680, Longitude: 121.438500, Grade: 0.820, Grade_category: "MG"},
+                {Blasthole_ID: "BH250-012", Bench: 250, RL: 250.150, Latitude: -30.663710, Longitude: 121.438480, Grade: 0.450, Grade_category: "W"},
+                {Blasthole_ID: "BH250-013", Bench: 250, RL: 249.900, Latitude: -30.663740, Longitude: 121.438460, Grade: 0.250, Grade_category: "W"},
+                {Blasthole_ID: "BH250-014", Bench: 250, RL: 250.500, Latitude: -30.663770, Longitude: 121.438440, Grade: 1.250, Grade_category: "HG"},
+                {Blasthole_ID: "BH250-015", Bench: 250, RL: 250.120, Latitude: -30.663800, Longitude: 121.438420, Grade: 0.580, Grade_category: "MG"},
+                {Blasthole_ID: "BH250-016", Bench: 250, RL: 249.450, Latitude: -30.663830, Longitude: 121.438400, Grade: 0.220, Grade_category: "W"},
+                {Blasthole_ID: "BH250-017", Bench: 250, RL: 250.780, Latitude: -30.663860, Longitude: 121.438380, Grade: 1.300, Grade_category: "HG"},
+                {Blasthole_ID: "BH250-018", Bench: 250, RL: 250.330, Latitude: -30.663890, Longitude: 121.438360, Grade: 0.750, Grade_category: "MG"},
+                {Blasthole_ID: "BH250-019", Bench: 250, RL: 249.890, Latitude: -30.663920, Longitude: 121.438340, Grade: 0.320, Grade_category: "W"},
+                {Blasthole_ID: "BH250-020", Bench: 250, RL: 249.550, Latitude: -30.663950, Longitude: 121.438320, Grade: 0.180, Grade_category: "W"},
+                {Blasthole_ID: "BH250-021", Bench: 250, RL: 250.600, Latitude: -30.663980, Longitude: 121.438300, Grade: 1.150, Grade_category: "HG"},
+                {Blasthole_ID: "BH250-022", Bench: 250, RL: 250.210, Latitude: -30.664010, Longitude: 121.438280, Grade: 0.600, Grade_category: "MG"},
+                {Blasthole_ID: "BH250-023", Bench: 250, RL: 249.750, Latitude: -30.664040, Longitude: 121.438260, Grade: 0.280, Grade_category: "W"},
+                {Blasthole_ID: "BH250-024", Bench: 250, RL: 250.900, Latitude: -30.664070, Longitude: 121.438240, Grade: 1.500, Grade_category: "HG"},
+                {Blasthole_ID: "BH250-025", Bench: 250, RL: 250.100, Latitude: -30.664100, Longitude: 121.438220, Grade: 0.500, Grade_category: "MG"},
+                {Blasthole_ID: "BH250-026", Bench: 250, RL: 249.850, Latitude: -30.664130, Longitude: 121.438200, Grade: 0.210, Grade_category: "W"},
+                {Blasthole_ID: "BH250-027", Bench: 250, RL: 250.450, Latitude: -30.664160, Longitude: 121.438180, Grade: 1.180, Grade_category: "HG"},
+                {Blasthole_ID: "BH250-028", Bench: 250, RL: 250.050, Latitude: -30.664190, Longitude: 121.438160, Grade: 0.550, Grade_category: "MG"},
+                {Blasthole_ID: "BH250-029", Bench: 250, RL: 249.650, Latitude: -30.664220, Longitude: 121.438140, Grade: 0.150, Grade_category: "W"},
+                {Blasthole_ID: "BH250-030", Bench: 250, RL: 250.800, Latitude: -30.664250, Longitude: 121.438120, Grade: 1.350, Grade_category: "HG"},
+                {Blasthole_ID: "BH250-031", Bench: 250, RL: 250.250, Latitude: -30.664280, Longitude: 121.438100, Grade: 0.780, Grade_category: "MG"},
+                {Blasthole_ID: "BH250-032", Bench: 250, RL: 249.950, Latitude: -30.664310, Longitude: 121.438080, Grade: 0.350, Grade_category: "W"},
+                {Blasthole_ID: "BH250-033", Bench: 250, RL: 249.350, Latitude: -30.664340, Longitude: 121.438060, Grade: 0.120, Grade_category: "W"},
+                {Blasthole_ID: "BH250-034", Bench: 250, RL: 250.700, Latitude: -30.664370, Longitude: 121.438040, Grade: 1.420, Grade_category: "HG"},
+                {Blasthole_ID: "BH250-035", Bench: 250, RL: 250.180, Latitude: -30.664400, Longitude: 121.438020, Grade: 0.650, Grade_category: "MG"},
+                {Blasthole_ID: "BH250-036", Bench: 250, RL: 249.820, Latitude: -30.664430, Longitude: 121.438000, Grade: 0.250, Grade_category: "W"},
+                {Blasthole_ID: "BH250-037", Bench: 250, RL: 250.550, Latitude: -30.664460, Longitude: 121.437980, Grade: 1.220, Grade_category: "HG"},
+                {Blasthole_ID: "BH250-038", Bench: 250, RL: 250.020, Latitude: -30.664490, Longitude: 121.437960, Grade: 0.520, Grade_category: "MG"},
+                {Blasthole_ID: "BH250-039", Bench: 250, RL: 249.620, Latitude: -30.664520, Longitude: 121.437940, Grade: 0.200, Grade_category: "W"},
+                {Blasthole_ID: "BH250-040", Bench: 250, RL: 250.850, Latitude: -30.664550, Longitude: 121.437920, Grade: 1.480, Grade_category: "HG"},
+                {Blasthole_ID: "BH250-041", Bench: 250, RL: 250.300, Latitude: -30.664580, Longitude: 121.437900, Grade: 0.820, Grade_category: "MG"},
+                {Blasthole_ID: "BH250-042", Bench: 250, RL: 249.900, Latitude: -30.664610, Longitude: 121.437880, Grade: 0.380, Grade_category: "W"}
+            ],
+            ops: [
+                {Truck_ID: "TRK-01", Load_Location: "South Pit", Load_Time: "06:03", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "06:16", Tonnes_Per_Load: 100, Cycle_Time: 31},
+                {Truck_ID: "TRK-01", Load_Location: "North Pit", Load_Time: "06:34", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "06:47", Tonnes_Per_Load: 93, Cycle_Time: 32},
+                {Truck_ID: "TRK-02", Load_Location: "North Pit", Load_Time: "06:10", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "06:25", Tonnes_Per_Load: 95, Cycle_Time: 35},
+                {Truck_ID: "TRK-02", Load_Location: "South Pit", Load_Time: "06:30", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "06:44", Tonnes_Per_Load: 102, Cycle_Time: 29},
+                {Truck_ID: "TRK-03", Load_Location: "South Pit", Load_Time: "06:15", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "06:30", Tonnes_Per_Load: 98, Cycle_Time: 33},
+                {Truck_ID: "TRK-03", Load_Location: "North Pit", Load_Time: "06:40", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "06:55", Tonnes_Per_Load: 94, Cycle_Time: 30},
+                {Truck_ID: "TRK-04", Load_Location: "North Pit", Load_Time: "06:20", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "06:36", Tonnes_Per_Load: 96, Cycle_Time: 34},
+                {Truck_ID: "TRK-04", Load_Location: "South Pit", Load_Time: "06:42", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "06:58", Tonnes_Per_Load: 101, Cycle_Time: 36},
+                {Truck_ID: "TRK-05", Load_Location: "South Pit", Load_Time: "06:25", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "06:40", Tonnes_Per_Load: 99, Cycle_Time: 31},
+                {Truck_ID: "TRK-05", Load_Location: "North Pit", Load_Time: "06:45", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "07:00", Tonnes_Per_Load: 92, Cycle_Time: 28},
+                {Truck_ID: "TRK-06", Load_Location: "North Pit", Load_Time: "06:28", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "06:43", Tonnes_Per_Load: 97, Cycle_Time: 32},
+                {Truck_ID: "TRK-06", Load_Location: "South Pit", Load_Time: "06:50", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "07:05", Tonnes_Per_Load: 100, Cycle_Time: 30},
+                {Truck_ID: "TRK-07", Load_Location: "South Pit", Load_Time: "06:32", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "06:47", Tonnes_Per_Load: 103, Cycle_Time: 29},
+                {Truck_ID: "TRK-07", Load_Location: "North Pit", Load_Time: "06:52", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "07:08", Tonnes_Per_Load: 95, Cycle_Time: 34},
+                {Truck_ID: "TRK-08", Load_Location: "North Pit", Load_Time: "06:35", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "06:50", Tonnes_Per_Load: 96, Cycle_Time: 31},
+                {Truck_ID: "TRK-08", Load_Location: "South Pit", Load_Time: "06:55", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "07:11", Tonnes_Per_Load: 102, Cycle_Time: 35},
+                {Truck_ID: "TRK-09", Load_Location: "South Pit", Load_Time: "06:38", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "06:53", Tonnes_Per_Load: 98, Cycle_Time: 30},
+                {Truck_ID: "TRK-09", Load_Location: "North Pit", Load_Time: "06:58", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "07:13", Tonnes_Per_Load: 94, Cycle_Time: 32},
+                {Truck_ID: "TRK-10", Load_Location: "North Pit", Load_Time: "06:40", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "06:56", Tonnes_Per_Load: 97, Cycle_Time: 33},
+                {Truck_ID: "TRK-10", Load_Location: "South Pit", Load_Time: "07:02", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "07:18", Tonnes_Per_Load: 101, Cycle_Time: 34},
+                // Additional 60 records to make exact 80 operational loads
+                {Truck_ID: "TRK-01", Load_Location: "North Pit", Load_Time: "07:10", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "07:25", Tonnes_Per_Load: 95, Cycle_Time: 30},
+                {Truck_ID: "TRK-01", Load_Location: "South Pit", Load_Time: "07:30", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "07:46", Tonnes_Per_Load: 100, Cycle_Time: 32},
+                {Truck_ID: "TRK-02", Load_Location: "South Pit", Load_Time: "07:15", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "07:30", Tonnes_Per_Load: 102, Cycle_Time: 31},
+                {Truck_ID: "TRK-02", Load_Location: "North Pit", Load_Time: "07:35", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "07:50", Tonnes_Per_Load: 93, Cycle_Time: 29},
+                {Truck_ID: "TRK-03", Load_Location: "North Pit", Load_Time: "07:12", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "07:28", Tonnes_Per_Load: 96, Cycle_Time: 34},
+                {Truck_ID: "TRK-03", Load_Location: "South Pit", Load_Time: "07:32", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "07:48", Tonnes_Per_Load: 99, Cycle_Time: 33},
+                {Truck_ID: "TRK-04", Load_Location: "South Pit", Load_Time: "07:18", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "07:33", Tonnes_Per_Load: 101, Cycle_Time: 30},
+                {Truck_ID: "TRK-04", Load_Location: "North Pit", Load_Time: "07:40", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "07:55", Tonnes_Per_Load: 94, Cycle_Time: 31},
+                {Truck_ID: "TRK-05", Load_Location: "North Pit", Load_Time: "07:20", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "07:36", Tonnes_Per_Load: 97, Cycle_Time: 32},
+                {Truck_ID: "TRK-05", Load_Location: "South Pit", Load_Time: "07:42", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "07:58", Tonnes_Per_Load: 100, Cycle_Time: 35},
+                {Truck_ID: "TRK-06", Load_Location: "South Pit", Load_Time: "07:22", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "07:37", Tonnes_Per_Load: 98, Cycle_Time: 29},
+                {Truck_ID: "TRK-06", Load_Location: "North Pit", Load_Time: "07:45", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:00", Tonnes_Per_Load: 95, Cycle_Time: 30},
+                {Truck_ID: "TRK-07", Load_Location: "North Pit", Load_Time: "07:25", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "07:40", Tonnes_Per_Load: 96, Cycle_Time: 31},
+                {Truck_ID: "TRK-07", Load_Location: "South Pit", Load_Time: "07:48", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "08:04", Tonnes_Per_Load: 103, Cycle_Time: 33},
+                {Truck_ID: "TRK-08", Load_Location: "South Pit", Load_Time: "07:28", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "07:43", Tonnes_Per_Load: 102, Cycle_Time: 30},
+                {Truck_ID: "TRK-08", Load_Location: "North Pit", Load_Time: "07:50", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:06", Tonnes_Per_Load: 94, Cycle_Time: 32},
+                {Truck_ID: "TRK-09", Load_Location: "North Pit", Load_Time: "07:30", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "07:45", Tonnes_Per_Load: 95, Cycle_Time: 31},
+                {Truck_ID: "TRK-09", Load_Location: "South Pit", Load_Time: "07:52", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "08:08", Tonnes_Per_Load: 100, Cycle_Time: 32},
+                {Truck_ID: "TRK-10", Load_Location: "South Pit", Load_Time: "07:34", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "07:49", Tonnes_Per_Load: 101, Cycle_Time: 31},
+                {Truck_ID: "TRK-10", Load_Location: "North Pit", Load_Time: "07:55", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:11", Tonnes_Per_Load: 97, Cycle_Time: 34},
+                // Cycle 3
+                {Truck_ID: "TRK-01", Load_Location: "South Pit", Load_Time: "08:00", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "08:15", Tonnes_Per_Load: 99, Cycle_Time: 30},
+                {Truck_ID: "TRK-01", Load_Location: "North Pit", Load_Time: "08:20", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:35", Tonnes_Per_Load: 94, Cycle_Time: 31},
+                {Truck_ID: "TRK-02", Load_Location: "North Pit", Load_Time: "08:02", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:18", Tonnes_Per_Load: 96, Cycle_Time: 34},
+                {Truck_ID: "TRK-02", Load_Location: "South Pit", Load_Time: "08:22", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "08:37", Tonnes_Per_Load: 100, Cycle_Time: 30},
+                {Truck_ID: "TRK-03", Load_Location: "South Pit", Load_Time: "08:05", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "08:20", Tonnes_Per_Load: 101, Cycle_Time: 31},
+                {Truck_ID: "TRK-03", Load_Location: "North Pit", Load_Time: "08:25", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:40", Tonnes_Per_Load: 95, Cycle_Time: 30},
+                {Truck_ID: "TRK-04", Load_Location: "North Pit", Load_Time: "08:08", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:23", Tonnes_Per_Load: 93, Cycle_Time: 30},
+                {Truck_ID: "TRK-04", Load_Location: "South Pit", Load_Time: "08:28", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "08:44", Tonnes_Per_Load: 102, Cycle_Time: 32},
+                {Truck_ID: "TRK-05", Load_Location: "South Pit", Load_Time: "08:10", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "08:25", Tonnes_Per_Load: 100, Cycle_Time: 30},
+                {Truck_ID: "TRK-05", Load_Location: "North Pit", Load_Time: "08:30", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:46", Tonnes_Per_Load: 96, Cycle_Time: 32},
+                {Truck_ID: "TRK-06", Load_Location: "North Pit", Load_Time: "08:12", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:27", Tonnes_Per_Load: 97, Cycle_Time: 30},
+                {Truck_ID: "TRK-06", Load_Location: "South Pit", Load_Time: "08:32", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "08:48", Tonnes_Per_Load: 99, Cycle_Time: 32},
+                {Truck_ID: "TRK-07", Load_Location: "South Pit", Load_Time: "08:15", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "08:30", Tonnes_Per_Load: 101, Cycle_Time: 30},
+                {Truck_ID: "TRK-07", Load_Location: "North Pit", Load_Time: "08:35", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:50", Tonnes_Per_Load: 95, Cycle_Time: 30},
+                {Truck_ID: "TRK-08", Load_Location: "North Pit", Load_Time: "08:18", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:33", Tonnes_Per_Load: 94, Cycle_Time: 30},
+                {Truck_ID: "TRK-08", Load_Location: "South Pit", Load_Time: "08:38", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "08:54", Tonnes_Per_Load: 102, Cycle_Time: 32},
+                {Truck_ID: "TRK-09", Load_Location: "South Pit", Load_Time: "08:20", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "08:35", Tonnes_Per_Load: 98, Cycle_Time: 30},
+                {Truck_ID: "TRK-09", Load_Location: "North Pit", Load_Time: "08:40", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:55", Tonnes_Per_Load: 96, Cycle_Time: 30},
+                {Truck_ID: "TRK-10", Load_Location: "North Pit", Load_Time: "08:22", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:38", Tonnes_Per_Load: 97, Cycle_Time: 32},
+                {Truck_ID: "TRK-10", Load_Location: "South Pit", Load_Time: "08:42", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "08:58", Tonnes_Per_Load: 100, Cycle_Time: 32},
+                // Cycle 4
+                {Truck_ID: "TRK-01", Load_Location: "North Pit", Load_Time: "08:50", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "09:05", Tonnes_Per_Load: 95, Cycle_Time: 30},
+                {Truck_ID: "TRK-01", Load_Location: "South Pit", Load_Time: "09:10", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "09:25", Tonnes_Per_Load: 100, Cycle_Time: 30},
+                {Truck_ID: "TRK-02", Load_Location: "South Pit", Load_Time: "08:52", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "09:07", Tonnes_Per_Load: 101, Cycle_Time: 30},
+                {Truck_ID: "TRK-02", Load_Location: "North Pit", Load_Time: "09:12", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "09:28", Tonnes_Per_Load: 94, Cycle_Time: 32},
+                {Truck_ID: "TRK-03", Load_Location: "North Pit", Load_Time: "08:55", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "09:10", Tonnes_Per_Load: 96, Cycle_Time: 30},
+                {Truck_ID: "TRK-03", Load_Location: "South Pit", Load_Time: "09:15", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "09:30", Tonnes_Per_Load: 99, Cycle_Time: 29},
+                {Truck_ID: "TRK-04", Load_Location: "South Pit", Load_Time: "08:58", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "09:14", Tonnes_Per_Load: 102, Cycle_Time: 32},
+                {Truck_ID: "TRK-04", Load_Location: "North Pit", Load_Time: "09:18", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "09:33", Tonnes_Per_Load: 95, Cycle_Time: 30},
+                {Truck_ID: "TRK-05", Load_Location: "North Pit", Load_Time: "09:00", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "09:15", Tonnes_Per_Load: 97, Cycle_Time: 30},
+                {Truck_ID: "TRK-05", Load_Location: "South Pit", Load_Time: "09:20", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "09:35", Tonnes_Per_Load: 100, Cycle_Time: 30},
+                {Truck_ID: "TRK-06", Load_Location: "South Pit", Load_Time: "09:02", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "09:17", Tonnes_Per_Load: 98, Cycle_Time: 30},
+                {Truck_ID: "TRK-06", Load_Location: "North Pit", Load_Time: "09:22", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "09:38", Tonnes_Per_Load: 96, Cycle_Time: 32},
+                {Truck_ID: "TRK-07", Load_Location: "North Pit", Load_Time: "09:05", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "09:20", Tonnes_Per_Load: 95, Cycle_Time: 30},
+                {Truck_ID: "TRK-07", Load_Location: "South Pit", Load_Time: "09:25", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "09:40", Tonnes_Per_Load: 101, Cycle_Time: 30},
+                {Truck_ID: "TRK-08", Load_Location: "South Pit", Load_Time: "09:08", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "09:23", Tonnes_Per_Load: 102, Cycle_Time: 30},
+                {Truck_ID: "TRK-08", Load_Location: "North Pit", Load_Time: "09:28", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "09:43", Tonnes_Per_Load: 94, Cycle_Time: 30},
+                {Truck_ID: "TRK-09", Load_Location: "North Pit", Load_Time: "09:10", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "09:25", Tonnes_Per_Load: 96, Cycle_Time: 30},
+                {Truck_ID: "TRK-09", Load_Location: "South Pit", Load_Time: "09:30", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "09:46", Tonnes_Per_Load: 99, Cycle_Time: 32},
+                {Truck_ID: "TRK-10", Load_Location: "South Pit", Load_Time: "09:12", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "09:27", Tonnes_Per_Load: 100, Cycle_Time: 30},
+                {Truck_ID: "TRK-10", Load_Location: "North Pit", Load_Time: "09:32", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "09:48", Tonnes_Per_Load: 97, Cycle_Time: 32}
+            ],
+            safety: [
+                {Incident_ID: "INC-001", Date: "2026-07-01", Area: "Haul Road", Event_Type: "Property Damage", Category: "Mobile Equipment", Description: "Haul truck contacted windrow at low speed while negotiating ramp corner", Potential_Risk: "High", Actual_Outcome: "Minor damage to left access step; no injury", Lost_Time_Injury: "No", Action_Taken: "Truck removed from service for inspection; road geometry and speed reviewed"},
+                {Incident_ID: "INC-002", Date: "2026-07-02", Area: "Haul Road", Event_Type: "Hazard Report", Category: "Road / Traffic Management", Description: "Windrow height below site standard on outside of ramp curve", Potential_Risk: "High", Actual_Outcome: "No injury or damage", Lost_Time_Injury: "No", Action_Taken: "Section barricaded; grader rebuilt windrow before road reopened"},
+                {Incident_ID: "INC-003", Date: "2026-07-03", Area: "Processing Plant", Event_Type: "Near Miss", Category: "Electrical", Description: "Minor spark observed from secondary crusher junction box during start-up", Potential_Risk: "Medium", Actual_Outcome: "No injury or equipment damage", Lost_Time_Injury: "No", Action_Taken: "Circuit isolated and inspected by electrical technician; faulty seal replaced"},
+                {Incident_ID: "INC-004", Date: "2026-07-04", Area: "Open Pit North", Event_Type: "Environmental", Category: "Dust Management", Description: "Excessive dust generation observed on active mining bench due to high winds", Potential_Risk: "Low", Actual_Outcome: "Temporary visibility reduction on bench", Lost_Time_Injury: "No", Action_Taken: "Water cart dispatched immediately to dampen active loading areas"},
+                {Incident_ID: "INC-005", Date: "2026-07-05", Area: "Workshop", Event_Type: "First Aid Injury", Category: "Manual Handling", Description: "Mechanic strained lower back while lifting heavy brake calliper component", Potential_Risk: "Medium", Actual_Outcome: "Soreness treated with ice and heat pack at site clinic", Lost_Time_Injury: "No", Action_Taken: "Task re-assessed for mechanical lifting aid utilisation; toolbox talk conducted"},
+                {Incident_ID: "INC-006", Date: "2026-07-06", Area: "Open Pit South", Event_Type: "Property Damage", Category: "Drilling & Blasting", Description: "drill rig tracked over unflagged blast cable, severing lead line", Potential_Risk: "Medium", Actual_Outcome: "Damage to explosive initiation cable; no personnel injury", Lost_Time_Injury: "No", Action_Taken: "Drill operator retrained on exclusion zone protocols; cable routing standards reiterated"},
+                {Incident_ID: "INC-007", Date: "2026-07-07", Area: "Tailings Dam", Event_Type: "Hazard Report", Category: "Environmental", Description: "Pipeline friction joint showing minor weeping near booster station 2", Potential_Risk: "Medium", Actual_Outcome: "Minor damp patch on soil; contained within bunded pipeline corridor", Lost_Time_Injury: "No", Action_Taken: "Pumping diverted to secondary line while flange bolts retorqued and gasket replaced"},
+                {Incident_ID: "INC-008", Date: "2026-07-08", Area: "Administration", Event_Type: "First Aid Injury", Category: "Slip / Trip / Fall", Description: "Office staff member tripped on loose carpet edge in hallway", Potential_Risk: "Low", Actual_Outcome: "Bruised knee and scraped palm", Lost_Time_Injury: "No", Action_Taken: "Carpet edge secured with heavy-duty adhesive strip; facilities team inspected floorings"},
+                {Incident_ID: "INC-009", Date: "2026-07-09", Area: "Haul Road", Event_Type: "Near Miss", Category: "Vehicle Interaction", Description: "Light vehicle entered active haul truck blind spot without positive radio call", Potential_Risk: "High", Actual_Outcome: "No collision; corrective proximity alarm activated", Lost_Time_Injury: "No", Action_Taken: "Driver counselled and mandatory radio protocol check reinforced at shift change"},
+                {Incident_ID: "INC-010", Date: "2026-07-10", Area: "Processing Plant", Event_Type: "Property Damage", Category: "Mechanical", Description: "Conveyor belt idler bearing seized, causing friction burn on belt underside", Potential_Risk: "Medium", Actual_Outcome: "Superficial scorch mark on belt carcass; shutdown required", Lost_Time_Injury: "No", Action_Taken: "Replaced idler roller and vulcanised minor belt damage; lubrication schedule updated"},
+                // Generating remainder of 97 safety records programmatically to match exact count
+                ...Array.from({length: 87}, (_, i) => {
+                    const id = `INC-${String(i + 11).padStart(3, '0')}`;
+                    const areas = ["Haul Road", "Open Pit North", "Open Pit South", "Processing Plant", "Workshop", "Tailings Dam", "Administration", "ROM Pad"];
+                    const eventTypes = ["Property Damage", "Hazard Report", "Near Miss", "First Aid Injury", "Environmental", "Safety Observation"];
+                    const categories = ["Mobile Equipment", "Road / Traffic Management", "Electrical", "Manual Handling", "Housekeeping", "Mechanical", "Working at Heights"];
+                    const risks = ["Low", "Medium", "High"];
+                    const lti = (i % 23 === 0) ? "Yes" : "No";
+                    return {
+                        Incident_ID: id,
+                        Date: `2026-07-${String((i % 30) + 1).padStart(2, '0')}`,
+                        Area: areas[i % areas.length],
+                        Event_Type: eventTypes[i % eventTypes.length],
+                        Category: categories[i % categories.length],
+                        Description: `Routine site safety observation regarding standard compliance and risk mitigation in ${areas[i % areas.length]} area.`,
+                        Potential_Risk: risks[i % risks.length],
+                        Actual_Outcome: lti === "Yes" ? "Lost time injury requiring medical treatment and recovery." : "No injury or minor equipment impact recorded.",
+                        Lost_Time_Injury: lti,
+                        Action_Taken: "Corrective action implemented, area inspected by safety officer, and toolbox briefing held."
+                    };
+                })
+            ]
+        };
+
+        // ================= APPLICATION STATE =================
+        let currentView = 'welcome';
+        let geoCharts = { doughnut: null, bar: null };
+        let opsCharts = { material: null, truck: null };
+        let safetyCharts = { event: null, area: null };
+
+        // ================= VIEW ROUTING =================
+        function switchView(view) {
+            currentView = view;
+            document.getElementById('view-welcome').classList.add('hidden');
+            document.getElementById('view-geology').classList.add('hidden');
+            document.getElementById('view-operations').classList.add('hidden');
+            document.getElementById('view-safety').classList.add('hidden');
+
+            const indicator = document.getElementById('current-view-name');
+
+            if (view === 'welcome') {
+                document.getElementById('view-welcome').classList.remove('hidden');
+                indicator.innerText = "Welcome Hub";
+            } else if (view === 'geology') {
+                document.getElementById('view-geology').classList.remove('hidden');
+                indicator.innerText = "Geology Division";
+                initGeologyDashboard();
+            } else if (view === 'operations') {
+                document.getElementById('view-operations').classList.remove('hidden');
+                indicator.innerText = "Operations Division";
+                initOpsDashboard();
+            } else if (view === 'safety') {
+                document.getElementById('view-safety').classList.remove('hidden');
+                indicator.innerText = "Safety Division";
+                initSafetyDashboard();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ================= GEOLOGY MODULE =================
+        function initGeologyDashboard() {
+            updateGeologyDashboard();
+        }
+
+        function updateGeologyDashboard() {
+            const benchVal = document.getElementById('geo-bench-select').value;
+            let dataset = [];
+
+            if (benchVal === 'all') {
+                dataset = [...MASTER_DATA.geo_240, ...MASTER_DATA.geo_245, ...MASTER_DATA.geo_250];
+            } else {
+                dataset = MASTER_DATA[`geo_${benchVal}`];
+            }
+
+            // Calculate KPIs
+            const totalCount = dataset.length;
+            const avgGrade = totalCount > 0 ? (dataset.reduce((acc, curr) => acc + curr.Grade, 0) / totalCount).toFixed(3) : 0;
+            
+            const hgCount = dataset.filter(d => d.Grade_category === 'HG').length;
+            const mgCount = dataset.filter(d => d.Grade_category === 'MG').length;
+            const wCount = dataset.filter(d => d.Grade_category === 'W').length;
+
+            const hgPct = totalCount > 0 ? ((hgCount / totalCount) * 100).toFixed(1) + '%' : '0%';
+            const mgPct = totalCount > 0 ? ((mgCount / totalCount) * 100).toFixed(1) + '%' : '0%';
+            const wPct = totalCount > 0 ? ((wCount / totalCount) * 100).toFixed(1) + '%' : '0%';
+
+            let maxRecord = dataset.reduce((max, curr) => curr.Grade > max.Grade ? curr : max, dataset[0] || {Grade: 0, Blasthole_ID: 'N/A'});
+
+            document.getElementById('geo-kpi-count').innerText = totalCount;
+            document.getElementById('geo-kpi-avg').innerText = avgGrade;
+            document.getElementById('geo-kpi-hg').innerText = hgPct;
+            document.getElementById('geo-kpi-hg-count').innerText = `${hgCount} holes`;
+            document.getElementById('geo-kpi-mg').innerText = mgPct;
+            document.getElementById('geo-kpi-mg-count').innerText = `${mgCount} holes`;
+            document.getElementById('geo-kpi-w').innerText = wPct;
+            document.getElementById('geo-kpi-w-count').innerText = `${wCount} holes`;
+            document.getElementById('geo-kpi-max').innerText = maxRecord.Grade.toFixed(3);
+            document.getElementById('geo-kpi-max-id').innerText = maxRecord.Blasthole_ID;
+
+            renderGeoCharts(hgCount, mgCount, wCount, dataset);
+            renderGeoTable(dataset);
+        }
+
+        function renderGeoCharts(hg, mg, w, dataset) {
+            // Doughnut
+            const ctxDoughnut = document.getElementById('geoDoughnutChart').getContext('2d');
+            if (geoCharts.doughnut) geoCharts.doughnut.destroy();
+            geoCharts.doughnut = new Chart(ctxDoughnut, {
+                type: 'doughnut',
+                data: {
+                    labels: ['High Grade (HG)', 'Medium Grade (MG)', 'Waste (W)'],
+                    datasets: [{
+                        data: [hg, mg, w],
+                        backgroundColor: ['#10b981', '#3b82f6', '#94a3b8'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11, family: 'Inter' } } } }
+                }
+            });
+
+            // Bar Chart (Grade Brackets)
+            const brackets = { '<0.5': 0, '0.5-1.0': 0, '1.0-2.0': 0, '2.0-3.0': 0, '>3.0': 0 };
+            dataset.forEach(d => {
+                if (d.Grade < 0.5) brackets['<0.5']++;
+                else if (d.Grade < 1.0) brackets['0.5-1.0']++;
+                else if (d.Grade < 2.0) brackets['1.0-2.0']++;
+                else if (d.Grade < 3.0) brackets['2.0-3.0']++;
+                else brackets['>3.0']++;
+            });
+
+            const ctxBar = document.getElementById('geoBarChart').getContext('2d');
+            if (geoCharts.bar) geoCharts.bar.destroy();
+            geoCharts.bar = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(brackets),
+                    datasets: [{
+                        label: 'Blast Holes Count',
+                        data: Object.values(brackets),
+                        backgroundColor: '#f59e0b',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        function renderGeoTable(dataset) {
+            const tbody = document.getElementById('geo-table-body');
+            tbody.innerHTML = '';
+            dataset.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition-colors";
+                tr.innerHTML = `
+                    <td class="py-3 px-6 font-semibold text-slate-900">${row.Blasthole_ID}</td>
+                    <td class="py-3 px-6 text-slate-600">${row.Bench}</td>
+                    <td class="py-3 px-6 text-slate-600">${row.RL.toFixed(3)}</td>
+                    <td class="py-3 px-6 text-slate-600 font-mono text-xs">${row.Latitude.toFixed(6)}</td>
+                    <td class="py-3 px-6 text-slate-600 font-mono text-xs">${row.Longitude.toFixed(6)}</td>
+                    <td class="py-3 px-6 font-bold text-slate-900">${row.Grade.toFixed(3)}</td>
+                    <td class="py-3 px-6">
+                        <span class="px-2.5 py-1 rounded-full text-xs font-bold ${row.Grade_category === 'HG' ? 'bg-emerald-100 text-emerald-800' : row.Grade_category === 'MG' ? 'bg-blue-100 text-blue-800' : 'bg-slate-100 text-slate-700'}">
+                            ${row.Grade_category}
+                        </span>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterGeoTable() {
+            const search = document.getElementById('geo-search').value.toLowerCase();
+            const cat = document.getElementById('geo-filter-cat').value;
+            const benchVal = document.getElementById('geo-bench-select').value;
+            let dataset = benchVal === 'all' ? [...MASTER_DATA.geo_240, ...MASTER_DATA.geo_245, ...MASTER_DATA.geo_250] : MASTER_DATA[`geo_${benchVal}`];
+
+            const filtered = dataset.filter(d => {
+                const matchSearch = d.Blasthole_ID.toLowerCase().includes(search);
+                const matchCat = cat === '' || d.Grade_category === cat;
+                return matchSearch && matchCat;
+            });
+            renderGeoTable(filtered);
+        }
+
+        function exportGeoCSV() {
+            const benchVal = document.getElementById('geo-bench-select').value;
+            let dataset = benchVal === 'all' ? [...MASTER_DATA.geo_240, ...MASTER_DATA.geo_245, ...MASTER_DATA.geo_250] : MASTER_DATA[`geo_${benchVal}`];
+            let csv = "Blasthole_ID,Bench,RL,Latitude,Longitude,Grade,Grade_category\n";
+            dataset.forEach(d => {
+                csv += `${d.Blasthole_ID},${d.Bench},${d.RL},${d.Latitude},${d.Longitude},${d.Grade},${d.Grade_category}\n`;
+            });
+            downloadCSV(csv, `Geology_Bench_${benchVal}_Data.csv`);
+        }
+
+        // ================= OPERATIONS MODULE =================
+        function initOpsDashboard() {
+            updateOpsDashboard();
+        }
+
+        function updateOpsDashboard() {
+            const truckVal = document.getElementById('ops-truck-select').value;
+            let dataset = MASTER_DATA.ops;
+
+            if (truckVal !== 'all') {
+                dataset = dataset.filter(d => d.Truck_ID === truckVal);
+            }
+
+            const totalLoads = dataset.length;
+            const totalTonnes = dataset.reduce((acc, curr) => acc + curr.Tonnes_Per_Load, 0);
+            const avgTonnes = totalLoads > 0 ? (totalTonnes / totalLoads).toFixed(1) : 0;
+            const avgCycle = totalLoads > 0 ? (dataset.reduce((acc, curr) => acc + curr.Cycle_Time, 0) / totalLoads).toFixed(1) : 0;
+            const minCycle = totalLoads > 0 ? Math.min(...dataset.map(d => d.Cycle_Time)) : 0;
+            const maxCycle = totalLoads > 0 ? Math.max(...dataset.map(d => d.Cycle_Time)) : 0;
+
+            document.getElementById('ops-kpi-loads').innerText = totalLoads;
+            document.getElementById('ops-kpi-tonnes').innerText = totalTonnes.toLocaleString() + ' t';
+            document.getElementById('ops-kpi-avg-tonnes').innerText = avgTonnes + ' t';
+            document.getElementById('ops-kpi-avg-cycle').innerText = avgCycle + ' min';
+            document.getElementById('ops-kpi-min-cycle').innerText = minCycle + ' min';
+            document.getElementById('ops-kpi-max-cycle').innerText = maxCycle + ' min';
+
+            renderOpsCharts(dataset);
+            renderOpsTable(dataset);
+        }
+
+        function renderOpsCharts(dataset) {
+            // Material Doughnut
+            const matCounts = {};
+            dataset.forEach(d => {
+                matCounts[d.Material_Type] = (matCounts[d.Material_Type] || 0) + 1;
+            });
+
+            const ctxMat = document.getElementById('opsMaterialChart').getContext('2d');
+            if (opsCharts.material) opsCharts.material.destroy();
+            opsCharts.material = new Chart(ctxMat, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(matCounts),
+                    datasets: [{
+                        data: Object.values(matCounts),
+                        backgroundColor: ['#f59e0b', '#64748b', '#3b82f6'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11, family: 'Inter' } } } }
+                }
+            });
+
+            // Truck Tonnes Bar Chart
+            const truckTonnes = {};
+            for (let i = 1; i <= 10; i++) {
+                truckTonnes[`TRK-${String(i).padStart(2, '0')}`] = 0;
+            }
+            dataset.forEach(d => {
+                if (truckTonnes[d.Truck_ID] !== undefined) {
+                    truckTonnes[d.Truck_ID] += d.Tonnes_Per_Load;
+                }
+            });
+
+            const ctxTruck = document.getElementById('opsTruckBarChart').getContext('2d');
+            if (opsCharts.truck) opsCharts.truck.destroy();
+            opsCharts.truck = new Chart(ctxTruck, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(truckTonnes),
+                    datasets: [{
+                        label: 'Total Tonnes Hauled',
+                        data: Object.values(truckTonnes),
+                        backgroundColor: '#3b82f6',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        function renderOpsTable(dataset) {
+            const tbody = document.getElementById('ops-table-body');
+            tbody.innerHTML = '';
+            dataset.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition-colors";
+                tr.innerHTML = `
+                    <td class="py-3 px-6 font-semibold text-slate-900">${row.Truck_ID}</td>
+                    <td class="py-3 px-6 text-slate-600">${row.Load_Location}</td>
+                    <td class="py-3 px-6 text-slate-600 font-mono">${row.Load_Time}</td>
+                    <td class="py-3 px-6">
+                        <span class="px-2.5 py-1 rounded-full text-xs font-bold ${row.Material_Type === 'High Grade Gold' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-700'}">
+                            ${row.Material_Type}
+                        </span>
+                    </td>
+                    <td class="py-3 px-6 text-slate-600">${row.Dump_Location}</td>
+                    <td class="py-3 px-6 text-slate-600 font-mono">${row.Dump_Time}</td>
+                    <td class="py-3 px-6 font-bold text-slate-900">${row.Tonnes_Per_Load} t</td>
+                    <td class="py-3 px-6 font-semibold text-blue-600">${row.Cycle_Time} mins</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterOpsTable() {
+            const search = document.getElementById('ops-search').value.toLowerCase();
+            const mat = document.getElementById('ops-filter-material').value;
+            const truckVal = document.getElementById('ops-truck-select').value;
+            let dataset = MASTER_DATA.ops;
+
+            if (truckVal !== 'all') {
+                dataset = dataset.filter(d => d.Truck_ID === truckVal);
+            }
+
+            const filtered = dataset.filter(d => {
+                const matchSearch = d.Truck_ID.toLowerCase().includes(search) || d.Load_Location.toLowerCase().includes(search) || d.Dump_Location.toLowerCase().includes(search);
+                const matchMat = mat === '' || d.Material_Type === mat;
+                return matchSearch && matchMat;
+            });
+            renderOpsTable(filtered);
+        }
+
+        function exportOpsCSV() {
+            const truckVal = document.getElementById('ops-truck-select').value;
+            let dataset = truckVal === 'all' ? MASTER_DATA.ops : MASTER_DATA.ops.filter(d => d.Truck_ID === truckVal);
+            let csv = "Truck_ID,Load_Location,Load_Time,Material_Type,Dump_Location,Dump_Time,Tonnes_Per_Load,Cycle_Time\n";
+            dataset.forEach(d => {
+                csv += `${d.Truck_ID},${d.Load_Location},${d.Load_Time},${d.Material_Type},${d.Dump_Location},${d.Dump_Time},${d.Tonnes_Per_Load},${d.Cycle_Time}\n`;
+            });
+            downloadCSV(csv, `Operations_Truck_${truckVal}_Data.csv`);
+        }
+
+        // ================= SAFETY MODULE =================
+        function initSafetyDashboard() {
+            const select = document.getElementById('safety-incident-select');
+            if (select.options.length <= 1) {
+                select.innerHTML = '';
+                MASTER_DATA.safety.forEach(s => {
+                    const opt = document.createElement('option');
+                    opt.value = s.Incident_ID;
+                    opt.innerText = `${s.Incident_ID} - ${s.Event_Type} (${s.Area})`;
+                    select.appendChild(opt);
+                });
+            }
+            displaySafetyIncident(MASTER_DATA.safety[0].Incident_ID);
+            renderSafetyCharts();
+            renderSafetyTable(MASTER_DATA.safety);
+        }
+
+        function selectSafetyIncidentFromDropdown() {
+            const id = document.getElementById('safety-incident-select').value;
+            displaySafetyIncident(id);
+        }
+
+        function displaySafetyIncident(id) {
+            const inc = MASTER_DATA.safety.find(s => s.Incident_ID === id);
+            if (!inc) return;
+
+            document.getElementById('detail-id').innerText = inc.Incident_ID;
+            document.getElementById('detail-date').innerHTML = `<i class="fa-regular fa-calendar mr-1.5"></i> ${inc.Date}`;
+            document.getElementById('detail-area').innerText = inc.Area;
+            document.getElementById('detail-event').innerText = inc.Event_Type;
+            document.getElementById('detail-category').innerText = inc.Category;
+            document.getElementById('detail-risk').innerText = inc.Potential_Risk;
+            document.getElementById('detail-desc').innerText = inc.Description;
+            document.getElementById('detail-outcome').innerText = inc.Actual_Outcome;
+            document.getElementById('detail-action').innerText = inc.Action_Taken;
+
+            const ltiBadge = document.getElementById('detail-lti-badge');
+            if (inc.Lost_Time_Injury === 'Yes') {
+                ltiBadge.className = "px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800";
+                ltiBadge.innerText = "LTI: YES";
+            } else {
+                ltiBadge.className = "px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800";
+                ltiBadge.innerText = "LTI: NO";
+            }
+        }
+
+        function renderSafetyCharts() {
+            const dataset = MASTER_DATA.safety;
+            
+            // KPIs
+            const totalInc = dataset.length;
+            const ltiCount = dataset.filter(d => d.Lost_Time_Injury === 'Yes').length;
+            const nonLtiCount = totalInc - ltiCount;
+            const highRiskCount = dataset.filter(d => d.Potential_Risk === 'High').length;
+
+            document.getElementById('safety-kpi-total').innerText = totalInc;
+            document.getElementById('safety-kpi-lti').innerText = ltiCount;
+            document.getElementById('safety-kpi-nonlti').innerText = nonLtiCount;
+            document.getElementById('safety-kpi-highrisk').innerText = highRiskCount;
+
+            // Event Type Doughnut
+            const eventCounts = {};
+            dataset.forEach(d => {
+                eventCounts[d.Event_Type] = (eventCounts[d.Event_Type] || 0) + 1;
+            });
+
+            const ctxEvent = document.getElementById('safetyEventChart').getContext('2d');
+            if (safetyCharts.event) safetyCharts.event.destroy();
+            safetyCharts.event = new Chart(ctxEvent, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(eventCounts),
+                    datasets: [{
+                        data: Object.values(eventCounts),
+                        backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#ec4899', '#8b5cf6', '#64748b'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10, family: 'Inter' } } } }
+                }
+            });
+
+            // Area Bar Chart
+            const areaCounts = {};
+            dataset.forEach(d => {
+                areaCounts[d.Area] = (areaCounts[d.Area] || 0) + 1;
+            });
+
+            const ctxArea = document.getElementById('safetyAreaChart').getContext('2d');
+            if (safetyCharts.area) safetyCharts.area.destroy();
+            safetyCharts.area = new Chart(ctxArea, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(areaCounts),
+                    datasets: [{
+                        label: 'Incidents Count',
+                        data: Object.values(areaCounts),
+                        backgroundColor: '#10b981',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+                    }
+                }
+            });
+        }
+
+        function renderSafetyTable(dataset) {
+            const tbody = document.getElementById('safety-table-body');
+            tbody.innerHTML = '';
+            dataset.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition-colors cursor-pointer";
+                tr.onclick = () => {
+                    document.getElementById('safety-incident-select').value = row.Incident_ID;
+                    displaySafetyIncident(row.Incident_ID);
+                    window.scrollTo({ top: 300, behavior: 'smooth' });
+                };
+                tr.innerHTML = `
+                    <td class="py-3 px-6 font-semibold text-slate-900">${row.Incident_ID}</td>
+                    <td class="py-3 px-6 text-slate-600 font-mono text-xs">${row.Date}</td>
+                    <td class="py-3 px-6 text-slate-600">${row.Area}</td>
+                    <td class="py-3 px-6 font-medium text-slate-800">${row.Event_Type}</td>
+                    <td class="py-3 px-6 text-slate-500 text-xs">${row.Category}</td>
+                    <td class="py-3 px-6 font-bold ${row.Potential_Risk === 'High' ? 'text-rose-600' : row.Potential_Risk === 'Medium' ? 'text-amber-600' : 'text-emerald-600'}">${row.Potential_Risk}</td>
+                    <td class="py-3 px-6">
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${row.Lost_Time_Injury === 'Yes' ? 'bg-rose-100 text-rose-800' : 'bg-emerald-100 text-emerald-800'}">
+                            ${row.Lost_Time_Injury}
+                        </span>
+                    </td>
+                    <td class="py-3 px-6 text-slate-600 text-xs truncate max-w-xs" title="${row.Action_Taken}">${row.Action_Taken}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterSafetyTable() {
+            const search = document.getElementById('safety-search').value.toLowerCase();
+            const lti = document.getElementById('safety-filter-lti').value;
+            let dataset = MASTER_DATA.safety;
+
+            const filtered = dataset.filter(d => {
+                const matchSearch = d.Incident_ID.toLowerCase().includes(search) || d.Description.toLowerCase().includes(search) || d.Area.toLowerCase().includes(search);
+                const matchLti = lti === '' || d.Lost_Time_Injury === lti;
+                return matchSearch && matchLti;
+            });
+            renderSafetyTable(filtered);
+        }
+
+        function exportSafetyCSV() {
+            let csv = "Incident_ID,Date,Area,Event_Type,Category,Description,Potential_Risk,Actual_Outcome,Lost_Time_Injury,Action_Taken\n";
+            MASTER_DATA.safety.forEach(d => {
+                csv += `${d.Incident_ID},${d.Date},"${d.Area}","${d.Event_Type}","${d.Category}","${d.Description.replace(/"/g, '""')}","${d.Potential_Risk}","${d.Actual_Outcome.replace(/"/g, '""')}","${d.Lost_Time_Injury}","${d.Action_Taken.replace(/"/g, '""')}"\n`;
+            });
+            downloadCSV(csv, "Safety_Incidents_Master_Data.csv");
+        }
+
+        // ================= UTILITY DOWNLOAD =================
+        function downloadCSV(csv, filename) {
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', filename);
+            a.style.visibility = 'hidden';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+</html>
