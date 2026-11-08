@@ -1,0 +1,19 @@
+I need your help into coming up with a prompt to Gemini into making the Geology Dashboard that is going to be in HTML (CSS and JS in the HTML).
+
+These are your targets:
+
+The first target is designing the "Geology Division" of the dashboard where the user can select what Bench it on (240, 245, 250, All). And in it, it going to show things such as: The amount of blast holes, The average grade (in grams per ton 'g/t'), High Grade (in %), Medium Grade (in %), Waste (in %), And Max Grade (g/t). Also add some useful information that could be used.
+
+The second target is "Operations Division" when the user can select the Truck ID. And in it, info will be shown such as Load Location, Load Time, Material Type (High Grade, Medium Grade, and Waste), Dump Time, Tonnes Per Load, and Cycle Time (Mins)
+
+And third target, is the "Safety Division" where the user can select the Incident through the Incident ID Selector. And In it info will be shown such as: The date it occurred, The Area, Event Type, Category, Description, Potential Risk, Actual Outcome, Lost Time Injury, And Action Taken.
+
+And here are the goals/requirements:
+
+Make a clean UI/UX based on the picture that will be provided.
+
+Using a sensible color scheme and typography.
+
+The first thing that the user should see on first boot is a welcome screen and then shown what division that they want to go in ("Geology Division", "Operations Division", And "Safety Division"). And when the user clicks on the Division they want to view, it shows the dashboard of the respective Division.
+
+NOTE: ADD MORE THINGS INTO THE REQIREMENTS SECTION ALONG WITH MAKING A NEW SECTION OF DELIVERABLES BASED ON THE EXCEL SHEET THAT I WILL BE LINKING TO MAKE THE PROMPT BETTER.
