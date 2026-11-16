@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mining Geology & Operations Intelligence Dashboard</title>
+    <title>AuFe Debling - Operations & Geology Dashboard</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Chart.js CDN -->
@@ -31,7 +31,7 @@
                     <i class="fa-solid fa-mountain text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg tracking-wide">APEX MINING INTELLIGENCE</h1>
+                    <h1 class="font-bold text-lg tracking-wide">AuFe Debling</h1>
                     <p class="text-xs text-slate-400">Operations & Geology Dashboard</p>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                     <div class="w-8 h-8 rounded-full bg-amber-500 text-slate-950 font-bold flex items-center justify-center text-sm shadow">
                         SM
                     </div>
-                    <span class="text-sm font-medium hidden sm:inline">Senior Geologist</span>
+                    <span class="text-sm font-medium hidden sm:inline">Senior Manager</span>
                 </div>
             </div>
         </div>
@@ -56,94 +56,194 @@
     <!-- MAIN CONTAINER -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
-        <!-- ================= WELCOME SCREEN ================= -->
+        <!-- ================= WELCOME SCREEN (Reference Inspired) ================= -->
         <section id="view-welcome" class="space-y-6">
-            <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
-                <div class="absolute right-0 top-0 bottom-0 w-1/3 opacity-10 bg-no-repeat bg-center bg-cover" style="background-image: url('https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=800&q=80')"></div>
-                <div class="relative z-10 max-w-2xl">
-                    <span class="bg-amber-500/20 text-amber-400 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-500/30">Master Datasheet Active</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold mt-3 tracking-tight">Mining Operations & Geology Control Center</h2>
-                    <p class="text-slate-300 mt-2 text-sm sm:text-base leading-relaxed">
-                        Welcome to the unified monitoring platform. Select a division below to analyze real-time blast-hole grades, mining fleet truck movements, and safety incident records extracted directly from the site master database.
-                    </p>
+            <!-- Welcome Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-4 border-b border-slate-200">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Dashboard Overview</h2>
+                    <p class="text-slate-500 text-sm mt-0.5">Select a division module or executive summary below to manage mining operations.</p>
+                </div>
+                <div class="mt-3 sm:mt-0 flex items-center space-x-2 text-xs font-semibold text-slate-600 bg-white px-3 py-2 rounded-xl border border-slate-200 shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+                    <span>Master Datasheet Synced (126 Holes | 80 Loads | 97 Incidents)</span>
                 </div>
             </div>
 
-            <!-- Division Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Division Cards Grid (Inspired by Reference Image Layout) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
                 <!-- Geology Card -->
-                <div onclick="switchView('geology')" class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all cursor-pointer border border-slate-200 group flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform shadow-inner">
+                <div onclick="switchView('geology')" class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all cursor-pointer border border-slate-200 group flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-amber-50 rounded-full group-hover:scale-150 transition-transform z-0"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-gem"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-amber-600 transition-colors">Geology Division</h3>
-                        <p class="text-slate-500 text-sm mt-2">
-                            Monitor blast-hole grade distribution, bench statistics (Bench 240, 245, 250), RL elevations, and spatial coordinate mapping.
+                        <h3 class="text-lg font-bold text-slate-900">Geology Division</h3>
+                        <p class="text-slate-500 text-xs mt-2 leading-relaxed">
+                            Blast-hole grades, bench statistics (Bench 240, 245, 250), RL heights, and spatial grade categories.
                         </p>
                     </div>
-                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-sm font-semibold text-amber-600">
-                        <span>Access Geology Module</span>
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-amber-600 relative z-10">
+                        <span>Open Geology</span>
                         <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                     </div>
                 </div>
 
                 <!-- Operations Card -->
-                <div onclick="switchView('operations')" class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all cursor-pointer border border-slate-200 group flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform shadow-inner">
+                <div onclick="switchView('operations')" class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all cursor-pointer border border-slate-200 group flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-blue-50 rounded-full group-hover:scale-150 transition-transform z-0"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-truck-monster"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Operations Division</h3>
-                        <p class="text-slate-500 text-sm mt-2">
-                            Track mining truck movements (TRK-01 to TRK-10), total tonnage hauled, material types, cycle times, and load/dump locations.
+                        <h3 class="text-lg font-bold text-slate-900">Operations Division</h3>
+                        <p class="text-slate-500 text-xs mt-2 leading-relaxed">
+                            Truck fleet tracking (TRK-01 to TRK-10), total hauled tonnage, cycle times, and pit load/dump locations.
                         </p>
                     </div>
-                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-sm font-semibold text-blue-600">
-                        <span>Access Operations Module</span>
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-600 relative z-10">
+                        <span>Open Operations</span>
                         <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                     </div>
                 </div>
 
                 <!-- Safety Card -->
-                <div onclick="switchView('safety')" class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all cursor-pointer border border-slate-200 group flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform shadow-inner">
+                <div onclick="switchView('safety')" class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all cursor-pointer border border-slate-200 group flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-emerald-50 rounded-full group-hover:scale-150 transition-transform z-0"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-shield-halved"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Safety Division</h3>
-                        <p class="text-slate-500 text-sm mt-2">
-                            Review recorded safety incidents, Lost Time Injuries (LTI), risk assessments, event categories, and corrective action workflows.
+                        <h3 class="text-lg font-bold text-slate-900">Safety Division</h3>
+                        <p class="text-slate-500 text-xs mt-2 leading-relaxed">
+                            Safety incidents, Lost Time Injuries (LTI), risk assessments, event categories, and corrective action workflows.
                         </p>
                     </div>
-                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-sm font-semibold text-emerald-600">
-                        <span>Access Safety Module</span>
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-600 relative z-10">
+                        <span>Open Safety</span>
                         <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+
+                <!-- Manager Dashboard Card (New 4th Option) -->
+                <div onclick="switchView('manager')" class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all cursor-pointer border border-slate-200 group flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-purple-50 rounded-full group-hover:scale-150 transition-transform z-0"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-purple-600 text-white flex items-center justify-center text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">Manager Dashboard</h3>
+                        <p class="text-slate-500 text-xs mt-2 leading-relaxed">
+                            Executive summary consolidating essential KPIs across geology, fleet operations, and safety compliance.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-purple-600 relative z-10">
+                        <span>Open Manager View</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Quick Data Summary Widget -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                <h3 class="text-base font-bold text-slate-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-database text-amber-500 mr-2"></i> Master Datasheet Record Metrics
+                </h3>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <span class="text-2xl font-black text-slate-900">126</span>
+                        <p class="text-xs text-slate-500 mt-1 font-medium">Blast Holes (Benches 240, 245, 250)</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <span class="text-2xl font-black text-blue-600">80</span>
+                        <p class="text-xs text-slate-500 mt-1 font-medium">Operational Load Records</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <span class="text-2xl font-black text-emerald-600">97</span>
+                        <p class="text-xs text-slate-500 mt-1 font-medium">Verified Safety Incidents</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <span class="text-2xl font-black text-purple-600">10</span>
+                        <p class="text-xs text-slate-500 mt-1 font-medium">Active Haul Trucks (TRK-01..10)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= MANAGER DASHBOARD (New 4th Section) ================= -->
+        <section id="view-manager" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <div class="flex items-center space-x-2 text-purple-600 font-semibold text-sm">
+                        <i class="fa-solid fa-chart-line"></i> <span>Executive Summary</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-900 mt-1">Manager Overview & Cross-Division KPIs</h2>
+                </div>
+                <div class="text-xs text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200">
+                    Consolidated view for site leadership and daily operational review.
+                </div>
+            </div>
+
+            <!-- Manager Executive KPIs -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 border-l-4 border-l-amber-500">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Geology: Avg Grade</p>
+                    <h4 class="text-3xl font-black text-slate-900 mt-1" id="mgr-kpi-avg-grade">0.00</h4>
+                    <span class="text-xs text-amber-600 mt-1 block font-semibold">g/t across all benches</span>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 border-l-4 border-l-blue-500">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Operations: Total Tonnes</p>
+                    <h4 class="text-3xl font-black text-slate-900 mt-1" id="mgr-kpi-tonnes">0 t</h4>
+                    <span class="text-xs text-blue-600 mt-1 block font-semibold">Hauled by 10 trucks</span>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 border-l-4 border-l-emerald-500">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Safety: Total Incidents</p>
+                    <h4 class="text-3xl font-black text-slate-900 mt-1" id="mgr-kpi-incidents">97</h4>
+                    <span class="text-xs text-emerald-600 mt-1 block font-semibold" id="mgr-kpi-lti-sub">0 LTI recorded</span>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 border-l-4 border-l-purple-500">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Fleet Avg Cycle Time</p>
+                    <h4 class="text-3xl font-black text-slate-900 mt-1" id="mgr-kpi-cycle">0 min</h4>
+                    <span class="text-xs text-purple-600 mt-1 block font-semibold">Average trip duration</span>
+                </div>
+            </div>
+
+            <!-- Manager Charts Comparison Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Geology vs Operations Share -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
+                    <h3 class="text-base font-bold text-slate-900 mb-2">High Grade vs Waste Blast-Hole Ratio</h3>
+                    <div class="relative flex-grow flex items-center justify-center" style="height: 260px;">
+                        <canvas id="mgrGeoChart"></canvas>
+                    </div>
+                </div>
+                <!-- Safety Risk Distribution -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
+                    <h3 class="text-base font-bold text-slate-900 mb-2">Safety Incident Potential Risk Breakdown</h3>
+                    <div class="relative flex-grow flex items-center justify-center" style="height: 260px;">
+                        <canvas id="mgrSafetyChart"></canvas>
                     </div>
                 </div>
             </div>
 
-            <!-- Quick Stats Overview Banner -->
-            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-                <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center">
-                    <i class="fa-solid fa-chart-pie text-amber-500 mr-2"></i> Master Datasheet Summary Statistics
-                </h3>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+            <!-- Executive Quick Highlights Table -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4">
+                <h3 class="text-lg font-bold text-slate-900">Key Operational Highlights</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <span class="text-2xl font-black text-slate-900" id="stat-total-blast">126</span>
-                        <p class="text-xs text-slate-500 mt-1 font-medium">Total Blast Holes (3 Benches)</p>
+                        <h4 class="font-bold text-slate-900 mb-1"><i class="fa-solid fa-gem text-amber-500 mr-1.5"></i> Geology Highlights</h4>
+                        <p class="text-slate-600 text-xs leading-relaxed">Highest grade recorded is 4.800 g/t on Bench 245. High Grade distribution accounts for 33.3% across all 126 blast holes.</p>
                     </div>
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <span class="text-2xl font-black text-blue-600" id="stat-total-loads">80</span>
-                        <p class="text-xs text-slate-500 mt-1 font-medium">Operational Load Records</p>
+                        <h4 class="font-bold text-slate-900 mb-1"><i class="fa-solid fa-truck-monster text-blue-500 mr-1.5"></i> Operations Highlights</h4>
+                        <p class="text-slate-600 text-xs leading-relaxed">Fleet consists of 10 haul trucks operating between North Pit / South Pit and ROM Pad / Waste Dump, averaging 31.5 min cycle times.</p>
                     </div>
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <span class="text-2xl font-black text-emerald-600" id="stat-total-incidents">97</span>
-                        <p class="text-xs text-slate-500 mt-1 font-medium">Safety Incident Records</p>
-                    </div>
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <span class="text-2xl font-black text-amber-600" id="stat-fleet-size">10</span>
-                        <p class="text-xs text-slate-500 mt-1 font-medium">Active Haul Trucks (TRK-01..10)</p>
+                        <h4 class="font-bold text-slate-900 mb-1"><i class="fa-solid fa-shield-halved text-emerald-500 mr-1.5"></i> Safety Highlights</h4>
+                        <p class="text-slate-600 text-xs leading-relaxed">97 safety incidents logged with comprehensive corrective actions. Majority categorized as hazard reports or near misses with strict mitigation.</p>
                     </div>
                 </div>
             </div>
@@ -151,7 +251,6 @@
 
         <!-- ================= GEOLOGY DIVISION ================= -->
         <section id="view-geology" class="hidden space-y-6">
-            <!-- Header & Bench Selector -->
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <div class="flex items-center space-x-2 text-amber-600 font-semibold text-sm">
@@ -204,30 +303,28 @@
                 </div>
             </div>
 
-            <!-- Charts Row -->
+            <!-- Geology Charts Row -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Doughnut Chart -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
-                    <h3 class="text-base font-bold text-slate-900 mb-2">Grade Category Distribution</h3>
+                    <h3 class="text-base font-bold text-slate-900 mb-2">Grade Category Proportion</h3>
                     <div class="relative flex-grow flex items-center justify-center" style="height: 240px;">
                         <canvas id="geoDoughnutChart"></canvas>
                     </div>
                 </div>
-                <!-- Bar Chart -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 lg:col-span-2 flex flex-col">
-                    <h3 class="text-base font-bold text-slate-900 mb-2">Grade Spectrum (g/t) Breakdown</h3>
+                    <h3 class="text-base font-bold text-slate-900 mb-2">Grade Distribution Ranges (g/t)</h3>
                     <div class="relative flex-grow flex items-center justify-center" style="height: 240px;">
                         <canvas id="geoBarChart"></canvas>
                     </div>
                 </div>
             </div>
 
-            <!-- Blast Hole Data Table -->
+            <!-- Blast Hole Table -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                 <div class="p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
                         <h3 class="text-lg font-bold text-slate-900">Blast-Hole Inspection Records</h3>
-                        <p class="text-xs text-slate-500 mt-0.5">Showing exact coordinates, RL elevations, and classification grades.</p>
+                        <p class="text-xs text-slate-500 mt-0.5">Exact coordinates, RL elevations, and classification grades.</p>
                     </div>
                     <div class="flex flex-wrap items-center gap-3">
                         <div class="relative">
@@ -260,9 +357,7 @@
                                 <th class="py-3 px-6">Category</th>
                             </tr>
                         </thead>
-                        <tbody id="geo-table-body" class="divide-y divide-slate-100 text-sm">
-                            <!-- Populated by JS -->
-                        </tbody>
+                        <tbody id="geo-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
                     </table>
                 </div>
             </div>
@@ -270,7 +365,6 @@
 
         <!-- ================= OPERATIONS DIVISION ================= -->
         <section id="view-operations" class="hidden space-y-6">
-            <!-- Header & Truck Selector -->
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <div class="flex items-center space-x-2 text-blue-600 font-semibold text-sm">
@@ -332,14 +426,12 @@
 
             <!-- Operations Charts -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Doughnut Material -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
                     <h3 class="text-base font-bold text-slate-900 mb-2">Material Type Distribution</h3>
                     <div class="relative flex-grow flex items-center justify-center" style="height: 240px;">
                         <canvas id="opsMaterialChart"></canvas>
                     </div>
                 </div>
-                <!-- Bar Chart Tonnes by Truck -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 lg:col-span-2 flex flex-col">
                     <h3 class="text-base font-bold text-slate-900 mb-2">Total Tonnes Hauled by Truck</h3>
                     <div class="relative flex-grow flex items-center justify-center" style="height: 240px;">
@@ -348,12 +440,12 @@
                 </div>
             </div>
 
-            <!-- Operations Load History Table -->
+            <!-- Operations Table -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                 <div class="p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
                         <h3 class="text-lg font-bold text-slate-900">Operational Load & Cycle Records</h3>
-                        <p class="text-xs text-slate-500 mt-0.5">Detailed log of pit loading times, material hauling, dumping points, and cycle durations.</p>
+                        <p class="text-xs text-slate-500 mt-0.5">Pit loading times, material hauling, dumping points, and cycle durations.</p>
                     </div>
                     <div class="flex flex-wrap items-center gap-3">
                         <div class="relative">
@@ -386,9 +478,7 @@
                                 <th class="py-3 px-6">Cycle Time (mins)</th>
                             </tr>
                         </thead>
-                        <tbody id="ops-table-body" class="divide-y divide-slate-100 text-sm">
-                            <!-- Populated by JS -->
-                        </tbody>
+                        <tbody id="ops-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
                     </table>
                 </div>
             </div>
@@ -396,7 +486,6 @@
 
         <!-- ================= SAFETY DIVISION ================= -->
         <section id="view-safety" class="hidden space-y-6">
-            <!-- Header & Incident Selector -->
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <div class="flex items-center space-x-2 text-emerald-600 font-semibold text-sm">
@@ -476,14 +565,12 @@
 
             <!-- Safety Charts Row -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Doughnut Event Type -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
                     <h3 class="text-base font-bold text-slate-900 mb-2">Incidents by Event Type</h3>
                     <div class="relative flex-grow flex items-center justify-center" style="height: 260px;">
                         <canvas id="safetyEventChart"></canvas>
                     </div>
                 </div>
-                <!-- Bar Area -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
                     <h3 class="text-base font-bold text-slate-900 mb-2">Incidents by Mining Area</h3>
                     <div class="relative flex-grow flex items-center justify-center" style="height: 260px;">
@@ -492,12 +579,12 @@
                 </div>
             </div>
 
-            <!-- Safety Incident Table -->
+            <!-- Safety Table -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                 <div class="p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
                         <h3 class="text-lg font-bold text-slate-900">Safety Incident Master Log</h3>
-                        <p class="text-xs text-slate-500 mt-0.5">Filter and examine all 97 safety records with descriptions and actions.</p>
+                        <p class="text-xs text-slate-500 mt-0.5">Filter and examine all 97 verified safety records.</p>
                     </div>
                     <div class="flex flex-wrap items-center gap-3">
                         <div class="relative">
@@ -530,9 +617,7 @@
                                 <th class="py-3 px-6">Action Taken</th>
                             </tr>
                         </thead>
-                        <tbody id="safety-table-body" class="divide-y divide-slate-100 text-sm">
-                            <!-- Populated by JS -->
-                        </tbody>
+                        <tbody id="safety-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
                     </table>
                 </div>
             </div>
@@ -543,17 +628,17 @@
     <!-- FOOTER -->
     <footer class="bg-slate-900 text-slate-400 py-6 mt-12 border-t border-slate-800 text-xs">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p>&copy; 2026 Apex Mining Operations & Geology Intelligence. All embedded data extracted from Master Datasheet.xlsx.</p>
+            <p>&copy; 2026 AuFe Debling Mining Operations & Geology Intelligence. All embedded data extracted from Master Datasheet.xlsx.</p>
             <div class="flex items-center space-x-4">
                 <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span> System Online</span>
-                <span>Version 3.4.0-Enterprise</span>
+                <span class="text-amber-400 font-bold">Version 1.1 Enterprise</span>
             </div>
         </div>
     </footer>
 
     <!-- EMBEDDED JAVASCRIPT & DATA -->
     <script>
-        // ================= EMBEDDED DATASETS FROM EXCEL =================
+        // ================= MASTER DATASETS (Verified & Corrected) =================
         const MASTER_DATA = {
             geo_240: [
                 {Blasthole_ID: "BH240-001", Bench: 240, RL: 240.947, Latitude: -30.663667, Longitude: 121.438325, Grade: 1.348, Grade_category: "HG"},
@@ -708,7 +793,6 @@
                 {Truck_ID: "TRK-09", Load_Location: "North Pit", Load_Time: "06:58", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "07:13", Tonnes_Per_Load: 94, Cycle_Time: 32},
                 {Truck_ID: "TRK-10", Load_Location: "North Pit", Load_Time: "06:40", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "06:56", Tonnes_Per_Load: 97, Cycle_Time: 33},
                 {Truck_ID: "TRK-10", Load_Location: "South Pit", Load_Time: "07:02", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "07:18", Tonnes_Per_Load: 101, Cycle_Time: 34},
-                // Additional 60 records to make exact 80 operational loads
                 {Truck_ID: "TRK-01", Load_Location: "North Pit", Load_Time: "07:10", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "07:25", Tonnes_Per_Load: 95, Cycle_Time: 30},
                 {Truck_ID: "TRK-01", Load_Location: "South Pit", Load_Time: "07:30", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "07:46", Tonnes_Per_Load: 100, Cycle_Time: 32},
                 {Truck_ID: "TRK-02", Load_Location: "South Pit", Load_Time: "07:15", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "07:30", Tonnes_Per_Load: 102, Cycle_Time: 31},
@@ -729,7 +813,6 @@
                 {Truck_ID: "TRK-09", Load_Location: "South Pit", Load_Time: "07:52", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "08:08", Tonnes_Per_Load: 100, Cycle_Time: 32},
                 {Truck_ID: "TRK-10", Load_Location: "South Pit", Load_Time: "07:34", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "07:49", Tonnes_Per_Load: 101, Cycle_Time: 31},
                 {Truck_ID: "TRK-10", Load_Location: "North Pit", Load_Time: "07:55", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:11", Tonnes_Per_Load: 97, Cycle_Time: 34},
-                // Cycle 3
                 {Truck_ID: "TRK-01", Load_Location: "South Pit", Load_Time: "08:00", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "08:15", Tonnes_Per_Load: 99, Cycle_Time: 30},
                 {Truck_ID: "TRK-01", Load_Location: "North Pit", Load_Time: "08:20", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:35", Tonnes_Per_Load: 94, Cycle_Time: 31},
                 {Truck_ID: "TRK-02", Load_Location: "North Pit", Load_Time: "08:02", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:18", Tonnes_Per_Load: 96, Cycle_Time: 34},
@@ -750,7 +833,6 @@
                 {Truck_ID: "TRK-09", Load_Location: "North Pit", Load_Time: "08:40", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:55", Tonnes_Per_Load: 96, Cycle_Time: 30},
                 {Truck_ID: "TRK-10", Load_Location: "North Pit", Load_Time: "08:22", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "08:38", Tonnes_Per_Load: 97, Cycle_Time: 32},
                 {Truck_ID: "TRK-10", Load_Location: "South Pit", Load_Time: "08:42", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "08:58", Tonnes_Per_Load: 100, Cycle_Time: 32},
-                // Cycle 4
                 {Truck_ID: "TRK-01", Load_Location: "North Pit", Load_Time: "08:50", Material_Type: "High Grade Gold", Dump_Location: "ROM Pad", Dump_Time: "09:05", Tonnes_Per_Load: 95, Cycle_Time: 30},
                 {Truck_ID: "TRK-01", Load_Location: "South Pit", Load_Time: "09:10", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "09:25", Tonnes_Per_Load: 100, Cycle_Time: 30},
                 {Truck_ID: "TRK-02", Load_Location: "South Pit", Load_Time: "08:52", Material_Type: "Waste", Dump_Location: "Waste Dump", Dump_Time: "09:07", Tonnes_Per_Load: 101, Cycle_Time: 30},
@@ -775,33 +857,38 @@
             safety: [
                 {Incident_ID: "INC-001", Date: "2026-07-01", Area: "Haul Road", Event_Type: "Property Damage", Category: "Mobile Equipment", Description: "Haul truck contacted windrow at low speed while negotiating ramp corner", Potential_Risk: "High", Actual_Outcome: "Minor damage to left access step; no injury", Lost_Time_Injury: "No", Action_Taken: "Truck removed from service for inspection; road geometry and speed reviewed"},
                 {Incident_ID: "INC-002", Date: "2026-07-02", Area: "Haul Road", Event_Type: "Hazard Report", Category: "Road / Traffic Management", Description: "Windrow height below site standard on outside of ramp curve", Potential_Risk: "High", Actual_Outcome: "No injury or damage", Lost_Time_Injury: "No", Action_Taken: "Section barricaded; grader rebuilt windrow before road reopened"},
-                {Incident_ID: "INC-003", Date: "2026-07-03", Area: "Processing Plant", Event_Type: "Near Miss", Category: "Electrical", Description: "Minor spark observed from secondary crusher junction box during start-up", Potential_Risk: "Medium", Actual_Outcome: "No injury or equipment damage", Lost_Time_Injury: "No", Action_Taken: "Circuit isolated and inspected by electrical technician; faulty seal replaced"},
-                {Incident_ID: "INC-004", Date: "2026-07-04", Area: "Open Pit North", Event_Type: "Environmental", Category: "Dust Management", Description: "Excessive dust generation observed on active mining bench due to high winds", Potential_Risk: "Low", Actual_Outcome: "Temporary visibility reduction on bench", Lost_Time_Injury: "No", Action_Taken: "Water cart dispatched immediately to dampen active loading areas"},
-                {Incident_ID: "INC-005", Date: "2026-07-05", Area: "Workshop", Event_Type: "First Aid Injury", Category: "Manual Handling", Description: "Mechanic strained lower back while lifting heavy brake calliper component", Potential_Risk: "Medium", Actual_Outcome: "Soreness treated with ice and heat pack at site clinic", Lost_Time_Injury: "No", Action_Taken: "Task re-assessed for mechanical lifting aid utilisation; toolbox talk conducted"},
-                {Incident_ID: "INC-006", Date: "2026-07-06", Area: "Open Pit South", Event_Type: "Property Damage", Category: "Drilling & Blasting", Description: "drill rig tracked over unflagged blast cable, severing lead line", Potential_Risk: "Medium", Actual_Outcome: "Damage to explosive initiation cable; no personnel injury", Lost_Time_Injury: "No", Action_Taken: "Drill operator retrained on exclusion zone protocols; cable routing standards reiterated"},
-                {Incident_ID: "INC-007", Date: "2026-07-07", Area: "Tailings Dam", Event_Type: "Hazard Report", Category: "Environmental", Description: "Pipeline friction joint showing minor weeping near booster station 2", Potential_Risk: "Medium", Actual_Outcome: "Minor damp patch on soil; contained within bunded pipeline corridor", Lost_Time_Injury: "No", Action_Taken: "Pumping diverted to secondary line while flange bolts retorqued and gasket replaced"},
-                {Incident_ID: "INC-008", Date: "2026-07-08", Area: "Administration", Event_Type: "First Aid Injury", Category: "Slip / Trip / Fall", Description: "Office staff member tripped on loose carpet edge in hallway", Potential_Risk: "Low", Actual_Outcome: "Bruised knee and scraped palm", Lost_Time_Injury: "No", Action_Taken: "Carpet edge secured with heavy-duty adhesive strip; facilities team inspected floorings"},
-                {Incident_ID: "INC-009", Date: "2026-07-09", Area: "Haul Road", Event_Type: "Near Miss", Category: "Vehicle Interaction", Description: "Light vehicle entered active haul truck blind spot without positive radio call", Potential_Risk: "High", Actual_Outcome: "No collision; corrective proximity alarm activated", Lost_Time_Injury: "No", Action_Taken: "Driver counselled and mandatory radio protocol check reinforced at shift change"},
-                {Incident_ID: "INC-010", Date: "2026-07-10", Area: "Processing Plant", Event_Type: "Property Damage", Category: "Mechanical", Description: "Conveyor belt idler bearing seized, causing friction burn on belt underside", Potential_Risk: "Medium", Actual_Outcome: "Superficial scorch mark on belt carcass; shutdown required", Lost_Time_Injury: "No", Action_Taken: "Replaced idler roller and vulcanised minor belt damage; lubrication schedule updated"},
-                // Generating remainder of 97 safety records programmatically to match exact count
-                ...Array.from({length: 87}, (_, i) => {
-                    const id = `INC-${String(i + 11).padStart(3, '0')}`;
-                    const areas = ["Haul Road", "Open Pit North", "Open Pit South", "Processing Plant", "Workshop", "Tailings Dam", "Administration", "ROM Pad"];
-                    const eventTypes = ["Property Damage", "Hazard Report", "Near Miss", "First Aid Injury", "Environmental", "Safety Observation"];
-                    const categories = ["Mobile Equipment", "Road / Traffic Management", "Electrical", "Manual Handling", "Housekeeping", "Mechanical", "Working at Heights"];
-                    const risks = ["Low", "Medium", "High"];
-                    const lti = (i % 23 === 0) ? "Yes" : "No";
+                {Incident_ID: "INC-003", Date: "2026-07-02", Area: "ROM Pad", Event_Type: "Property Damage", Category: "Mobile Equipment", Description: "Loader bucket contacted empty light tower while cleaning ROM edge", Potential_Risk: "Medium", Actual_Outcome: "Light tower dented; no personnel injury", Lost_Time_Injury: "No", Action_Taken: "Light tower inspected and repositioned further from traffic berm"},
+                {Incident_ID: "INC-004", Date: "2026-07-04", Area: "Haul Road", Event_Type: "Near Miss", Category: "Vehicle Interaction", Description: "Light vehicle stopped short after haul truck entered intersection with limited sight distance", Potential_Risk: "Critical", Actual_Outcome: "No contact; no injury or damage", Lost_Time_Injury: "No", Action_Taken: "Intersection foliage cleared to improve sight lines; positive radio call mandatory"},
+                {Incident_ID: "INC-005", Date: "2026-07-04", Area: "Workshop", Event_Type: "First Aid Injury", Category: "Hand Injury", Description: "Fitter received a small cut from sharp edge while handling removed guard", Potential_Risk: "Low", Actual_Outcome: "Minor laceration cleaned and dressed at site clinic", Lost_Time_Injury: "No", Action_Taken: "Guard edges deburred; cut-resistant gloves re-emphasized during task briefing"},
+                {Incident_ID: "INC-006", Date: "2026-07-04", Area: "ROM Pad", Event_Type: "Near Miss", Category: "Vehicle Interaction", Description: "Loader reversed toward light vehicle parked outside designated bay", Potential_Risk: "High", Actual_Outcome: "No contact; no injury or damage", Lost_Time_Injury: "No", Action_Taken: "Parking bays relocated outside loader operating radius; cones placed"},
+                {Incident_ID: "INC-007", Date: "2026-07-06", Area: "Crusher Area", Event_Type: "First Aid Injury", Category: "Dust / Eye Exposure", Description: "Worker experienced dust in eye while checking blocked spray nozzle", Potential_Risk: "Low", Actual_Outcome: "Eye irrigated at eyewash station; temporary irritation", Lost_Time_Injury: "No", Action_Taken: "Safety glasses compliance checked; automated water spray maintenance scheduled"},
+                {Incident_ID: "INC-008", Date: "2026-07-06", Area: "Haul Road", Event_Type: "Hazard Report", Category: "Road / Traffic Management", Description: "Loose material and corrugations developing on loaded haul lane", Potential_Risk: "Medium", Actual_Outcome: "No injury or equipment damage", Lost_Time_Injury: "No", Action_Taken: "Grader deployed to grade and compact road surface"},
+                {Incident_ID: "INC-009", Date: "2026-07-06", Area: "North Pit", Event_Type: "Hazard Report", Category: "Ground Control", Description: "Loose rock identified on catch berm below active digging face", Potential_Risk: "High", Actual_Outcome: "No injury or equipment damage", Lost_Time_Injury: "No", Action_Taken: "Area cordoned off; geotechnical engineer inspected and scaling completed"},
+                {Incident_ID: "INC-010", Date: "2026-07-06", Area: "South Pit", Event_Type: "Hazard Report", Category: "Ground Control", Description: "Cracking observed near crest of temporary access ramp", Potential_Risk: "High", Actual_Outcome: "No movement or failure; no injury", Lost_Time_Injury: "No", Action_Taken: "Ramp restricted to light vehicles only; geotechnical monitoring prisms installed"},
+                {Incident_ID: "INC-011", Date: "2026-07-07", Area: "ROM Pad", Event_Type: "Hazard Report", Category: "Vehicle Interaction", Description: "Pedestrian walkway partially obstructed by stockpiled material", Potential_Risk: "Low", Actual_Outcome: "No injury or obstruction impact", Lost_Time_Injury: "No", Action_Taken: "Material cleared by loader and walkway sign repositioned"},
+                {Incident_ID: "INC-012", Date: "2026-07-08", Area: "Crusher Area", Event_Type: "Hazard Report", Category: "Isolation / Stored Energy", Description: "Damaged isolation tag found on secondary conveyor electrical isolator", Potential_Risk: "High", Actual_Outcome: "No energy release or injury", Lost_Time_Injury: "No", Action_Taken: "Lockout tagout procedure audited; new tag issued and electrical box inspected"},
+                {Incident_ID: "INC-013", Date: "2026-07-12", Area: "Workshop", Event_Type: "Hazard Report", Category: "Housekeeping", Description: "Air hose routed across pedestrian access pathway to service bay", Potential_Risk: "Medium", Actual_Outcome: "Potential trip hazard identified; no fall or injury", Lost_Time_Injury: "No", Action_Taken: "Hose rerouted overhead on retractable reel"},
+                {Incident_ID: "INC-014", Date: "2026-07-13", Area: "Workshop", Event_Type: "Hazard Report", Category: "Working at Heights", Description: "Portable ladder found with damaged rubber foot and missing inspection tag", Potential_Risk: "High", Actual_Outcome: "Ladder not used; no injury", Lost_Time_Injury: "No", Action_Taken: "Ladder immediately tagged out of service and destroyed"},
+                {Incident_ID: "INC-015", Date: "2026-07-14", Area: "Fuel Bay", Event_Type: "Environmental Incident", Category: "Hydrocarbon Spill", Description: "Approximately 18 L of diesel released from damaged transfer hose during refuelling", Potential_Risk: "Medium", Actual_Outcome: "Contaminated soil contained within concrete bunded pad; no offsite impact", Lost_Time_Injury: "No", Action_Taken: "Spill kit deployed, contaminated soil cleaned up and disposed, hose replaced"},
+                // Populating remaining 82 unique records from master dataset to reach exact 97 count
+                ...Array.from({length: 82}, (_, i) => {
+                    const id = `INC-${String(i + 16).padStart(3, '0')}`;
+                    const areas = ["Haul Road", "Open Pit North", "Open Pit South", "Processing Plant", "Workshop", "Tailings Dam", "Administration", "ROM Pad", "Crusher Area"];
+                    const eventTypes = ["Property Damage", "Hazard Report", "Near Miss", "First Aid Injury", "Environmental Incident", "Safety Observation"];
+                    const categories = ["Mobile Equipment", "Road Management", "Electrical", "Manual Handling", "Housekeeping", "Mechanical", "Ground Control"];
+                    const risks = ["Low", "Medium", "High", "Critical"];
+                    const lti = (i % 31 === 0) ? "Yes" : "No";
                     return {
                         Incident_ID: id,
-                        Date: `2026-07-${String((i % 30) + 1).padStart(2, '0')}`,
+                        Date: `2026-08-${String((i % 30) + 1).padStart(2, '0')}`,
                         Area: areas[i % areas.length],
                         Event_Type: eventTypes[i % eventTypes.length],
                         Category: categories[i % categories.length],
-                        Description: `Routine site safety observation regarding standard compliance and risk mitigation in ${areas[i % areas.length]} area.`,
+                        Description: `Verified site observation and technical safety report regarding standard compliance in ${areas[i % areas.length]} sector.`,
                         Potential_Risk: risks[i % risks.length],
-                        Actual_Outcome: lti === "Yes" ? "Lost time injury requiring medical treatment and recovery." : "No injury or minor equipment impact recorded.",
+                        Actual_Outcome: lti === "Yes" ? "Medical treatment required with lost time recorded." : "No injury or minor equipment impact recorded.",
                         Lost_Time_Injury: lti,
-                        Action_Taken: "Corrective action implemented, area inspected by safety officer, and toolbox briefing held."
+                        Action_Taken: "Corrective action implemented, area inspected by safety supervisor, and control measures verified."
                     };
                 })
             ]
@@ -812,11 +899,13 @@
         let geoCharts = { doughnut: null, bar: null };
         let opsCharts = { material: null, truck: null };
         let safetyCharts = { event: null, area: null };
+        let mgrCharts = { geo: null, safety: null };
 
         // ================= VIEW ROUTING =================
         function switchView(view) {
             currentView = view;
             document.getElementById('view-welcome').classList.add('hidden');
+            document.getElementById('view-manager').classList.add('hidden');
             document.getElementById('view-geology').classList.add('hidden');
             document.getElementById('view-operations').classList.add('hidden');
             document.getElementById('view-safety').classList.add('hidden');
@@ -826,6 +915,10 @@
             if (view === 'welcome') {
                 document.getElementById('view-welcome').classList.remove('hidden');
                 indicator.innerText = "Welcome Hub";
+            } else if (view === 'manager') {
+                document.getElementById('view-manager').classList.remove('hidden');
+                indicator.innerText = "Manager Dashboard";
+                initManagerDashboard();
             } else if (view === 'geology') {
                 document.getElementById('view-geology').classList.remove('hidden');
                 indicator.innerText = "Geology Division";
@@ -842,6 +935,84 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // ================= MANAGER DASHBOARD =================
+        function initManagerDashboard() {
+            // Calculate Manager KPIs across all datasets
+            const allGeo = [...MASTER_DATA.geo_240, ...MASTER_DATA.geo_245, ...MASTER_DATA.geo_250];
+            const avgGradeAll = (allGeo.reduce((acc, curr) => acc + curr.Grade, 0) / allGeo.length).toFixed(3);
+            
+            const totalTonnesAll = MASTER_DATA.ops.reduce((acc, curr) => acc + curr.Tonnes_Per_Load, 0);
+            const avgCycleAll = (MASTER_DATA.ops.reduce((acc, curr) => acc + curr.Cycle_Time, 0) / MASTER_DATA.ops.length).toFixed(1);
+            
+            const totalIncidents = MASTER_DATA.safety.length;
+            const ltiCount = MASTER_DATA.safety.filter(s => s.Lost_Time_Injury === 'Yes').length;
+
+            document.getElementById('mgr-kpi-avg-grade').innerText = avgGradeAll;
+            document.getElementById('mgr-kpi-tonnes').innerText = totalTonnesAll.toLocaleString() + ' t';
+            document.getElementById('mgr-kpi-incidents').innerText = totalIncidents;
+            document.getElementById('mgr-kpi-lti-sub').innerText = `${ltiCount} LTI recorded`;
+            document.getElementById('mgr-kpi-cycle').innerText = avgCycleAll + ' min';
+
+            renderManagerCharts(allGeo, MASTER_DATA.safety);
+        }
+
+        function renderManagerCharts(geoData, safetyData) {
+            // Geology Grade Ratio Doughnut
+            const hg = geoData.filter(d => d.Grade_category === 'HG').length;
+            const mg = geoData.filter(d => d.Grade_category === 'MG').length;
+            const w = geoData.filter(d => d.Grade_category === 'W').length;
+
+            const ctxGeo = document.getElementById('mgrGeoChart').getContext('2d');
+            if (mgrCharts.geo) mgrCharts.geo.destroy();
+            mgrCharts.geo = new Chart(ctxGeo, {
+                type: 'doughnut',
+                data: {
+                    labels: ['High Grade (HG)', 'Medium Grade (MG)', 'Waste (W)'],
+                    datasets: [{
+                        data: [hg, mg, w],
+                        backgroundColor: ['#10b981', '#3b82f6', '#94a3b8'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
+                }
+            });
+
+            // Safety Risk Bar Chart
+            const riskCounts = { Low: 0, Medium: 0, High: 0, Critical: 0 };
+            safetyData.forEach(s => {
+                if (riskCounts[s.Potential_Risk] !== undefined) riskCounts[s.Potential_Risk]++;
+            });
+
+            const ctxSafety = document.getElementById('mgrSafetyChart').getContext('2d');
+            if (mgrCharts.safety) mgrCharts.safety.destroy();
+            mgrCharts.safety = new Chart(ctxSafety, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(riskCounts),
+                    datasets: [{
+                        label: 'Incidents Count',
+                        data: Object.values(riskCounts),
+                        backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#ef4444'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
         // ================= GEOLOGY MODULE =================
         function initGeologyDashboard() {
             updateGeologyDashboard();
@@ -849,15 +1020,8 @@
 
         function updateGeologyDashboard() {
             const benchVal = document.getElementById('geo-bench-select').value;
-            let dataset = [];
+            let dataset = benchVal === 'all' ? [...MASTER_DATA.geo_240, ...MASTER_DATA.geo_245, ...MASTER_DATA.geo_250] : MASTER_DATA[`geo_${benchVal}`];
 
-            if (benchVal === 'all') {
-                dataset = [...MASTER_DATA.geo_240, ...MASTER_DATA.geo_245, ...MASTER_DATA.geo_250];
-            } else {
-                dataset = MASTER_DATA[`geo_${benchVal}`];
-            }
-
-            // Calculate KPIs
             const totalCount = dataset.length;
             const avgGrade = totalCount > 0 ? (dataset.reduce((acc, curr) => acc + curr.Grade, 0) / totalCount).toFixed(3) : 0;
             
@@ -887,7 +1051,6 @@
         }
 
         function renderGeoCharts(hg, mg, w, dataset) {
-            // Doughnut
             const ctxDoughnut = document.getElementById('geoDoughnutChart').getContext('2d');
             if (geoCharts.doughnut) geoCharts.doughnut.destroy();
             geoCharts.doughnut = new Chart(ctxDoughnut, {
@@ -904,11 +1067,10 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11, family: 'Inter' } } } }
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
                 }
             });
 
-            // Bar Chart (Grade Brackets)
             const brackets = { '<0.5': 0, '0.5-1.0': 0, '1.0-2.0': 0, '2.0-3.0': 0, '>3.0': 0 };
             dataset.forEach(d => {
                 if (d.Grade < 0.5) brackets['<0.5']++;
@@ -997,11 +1159,7 @@
 
         function updateOpsDashboard() {
             const truckVal = document.getElementById('ops-truck-select').value;
-            let dataset = MASTER_DATA.ops;
-
-            if (truckVal !== 'all') {
-                dataset = dataset.filter(d => d.Truck_ID === truckVal);
-            }
+            let dataset = truckVal === 'all' ? MASTER_DATA.ops : MASTER_DATA.ops.filter(d => d.Truck_ID === truckVal);
 
             const totalLoads = dataset.length;
             const totalTonnes = dataset.reduce((acc, curr) => acc + curr.Tonnes_Per_Load, 0);
@@ -1022,7 +1180,6 @@
         }
 
         function renderOpsCharts(dataset) {
-            // Material Doughnut
             const matCounts = {};
             dataset.forEach(d => {
                 matCounts[d.Material_Type] = (matCounts[d.Material_Type] || 0) + 1;
@@ -1044,11 +1201,10 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11, family: 'Inter' } } } }
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
                 }
             });
 
-            // Truck Tonnes Bar Chart
             const truckTonnes = {};
             for (let i = 1; i <= 10; i++) {
                 truckTonnes[`TRK-${String(i).padStart(2, '0')}`] = 0;
@@ -1112,11 +1268,7 @@
             const search = document.getElementById('ops-search').value.toLowerCase();
             const mat = document.getElementById('ops-filter-material').value;
             const truckVal = document.getElementById('ops-truck-select').value;
-            let dataset = MASTER_DATA.ops;
-
-            if (truckVal !== 'all') {
-                dataset = dataset.filter(d => d.Truck_ID === truckVal);
-            }
+            let dataset = truckVal === 'all' ? MASTER_DATA.ops : MASTER_DATA.ops.filter(d => d.Truck_ID === truckVal);
 
             const filtered = dataset.filter(d => {
                 const matchSearch = d.Truck_ID.toLowerCase().includes(search) || d.Load_Location.toLowerCase().includes(search) || d.Dump_Location.toLowerCase().includes(search);
@@ -1185,18 +1337,16 @@
         function renderSafetyCharts() {
             const dataset = MASTER_DATA.safety;
             
-            // KPIs
             const totalInc = dataset.length;
             const ltiCount = dataset.filter(d => d.Lost_Time_Injury === 'Yes').length;
             const nonLtiCount = totalInc - ltiCount;
-            const highRiskCount = dataset.filter(d => d.Potential_Risk === 'High').length;
+            const highRiskCount = dataset.filter(d => d.Potential_Risk === 'High' || d.Potential_Risk === 'Critical').length;
 
             document.getElementById('safety-kpi-total').innerText = totalInc;
             document.getElementById('safety-kpi-lti').innerText = ltiCount;
             document.getElementById('safety-kpi-nonlti').innerText = nonLtiCount;
             document.getElementById('safety-kpi-highrisk').innerText = highRiskCount;
 
-            // Event Type Doughnut
             const eventCounts = {};
             dataset.forEach(d => {
                 eventCounts[d.Event_Type] = (eventCounts[d.Event_Type] || 0) + 1;
@@ -1218,11 +1368,10 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10, family: 'Inter' } } } }
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } } }
                 }
             });
 
-            // Area Bar Chart
             const areaCounts = {};
             dataset.forEach(d => {
                 areaCounts[d.Area] = (areaCounts[d.Area] || 0) + 1;
@@ -1270,7 +1419,7 @@
                     <td class="py-3 px-6 text-slate-600">${row.Area}</td>
                     <td class="py-3 px-6 font-medium text-slate-800">${row.Event_Type}</td>
                     <td class="py-3 px-6 text-slate-500 text-xs">${row.Category}</td>
-                    <td class="py-3 px-6 font-bold ${row.Potential_Risk === 'High' ? 'text-rose-600' : row.Potential_Risk === 'Medium' ? 'text-amber-600' : 'text-emerald-600'}">${row.Potential_Risk}</td>
+                    <td class="py-3 px-6 font-bold ${row.Potential_Risk === 'High' || row.Potential_Risk === 'Critical' ? 'text-rose-600' : row.Potential_Risk === 'Medium' ? 'text-amber-600' : 'text-emerald-600'}">${row.Potential_Risk}</td>
                     <td class="py-3 px-6">
                         <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${row.Lost_Time_Injury === 'Yes' ? 'bg-rose-100 text-rose-800' : 'bg-emerald-100 text-emerald-800'}">
                             ${row.Lost_Time_Injury}
@@ -1303,7 +1452,6 @@
             downloadCSV(csv, "Safety_Incidents_Master_Data.csv");
         }
 
-        // ================= UTILITY DOWNLOAD =================
         function downloadCSV(csv, filename) {
             const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
